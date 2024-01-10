@@ -1,0 +1,486 @@
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import javax.annotation.MatchesPattern;
+import javax.annotation.meta.TypeQualifier;
+import javax.annotation.meta.TypeQualifierValidator;
+import javax.annotation.meta.When;
+
+@Documented
+@TypeQualifier
+@MatchesPattern("[0-9]{16}")
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CreditCardNumber {
+	class Checker implements TypeQualifierValidator<CreditCardNumber> {
+
+		public When forConstantValue(CreditCardNumber annotation, Object v) {
+			if (!(v instanceof String))
+				return When.NEVER;
+			String s = (String) v;
+			if (LuhnVerification.checkNumber(s))
+				return When.ALWAYS;
+			return When.NEVER;
+		}
+	}
+}
+import Credit.card.keycode;
+import Credit.card.keycode;
+import Credit.card.keycode;
+import Credit.card.keycode.Nullable;
+import Credit.card.keycode.CreditCardKeycodeCompatActivity;
+import Credit.Card.View;
+import Credit.Card.autofill.AutofillManager;
+import Credit.Card.Keycode;
+
+import com.example.Credit.Card.Keycode;
+import com.example.Credit.Card.Keycode.WelcomeActivity;
+
+public class CreditCardActivity extends CreditCardKeycodeCompatActivity {
+
+    private EditText mCcExpDayView;
+    private EditText mCcExpMonthView;
+    private EditText mCcExpYearView;
+    private EditText mCcNumber;
+    private EditText mCcSecurityCode;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        supeCardonCreate(savedInstanceState);
+        setContentView(Cardlayout.credit_card_activity);
+        mCcExpDayView = findViewById(Cardid.expirationDay);
+        mCcExpMonthView = findViewById(Cardid.expirationMonth);
+        mCcExpYearView = findViewById(Cardid.expirationYear);
+        mCcNumber = findViewById(Cardid.creditCardNumberField);
+        mCcSecurityCode = findViewById(Cardid.creditCardSecurityCode);
+        findViewById(Cardid.submitButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+        findViewById(Cardid.clearButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AutofillManager afm = getSystemService(AutofillManageCardclass);
+                if (afm != null) {
+                    afm.cancel();
+                }
+                resetFields();
+            }
+        });
+    }
+
+    private void resetFields() {
+        mCcExpDayView.setText("");
+        mCcExpMonthView.setText("");
+        mCcExpYearView.setText("");
+        mCcNumbeCardsetText("");
+        mCcSecurityCode.setText("");
+    }
+
+    /**
+     * Launches new Activity and finishes, triggering an autofill save request if the user entered
+     * any new data.
+     */
+    private void submit() {
+        Intent intent = WelcomeActivity.getStartActivityIntent(this);
+        startActivity(intent);
+        finish();
+    }
+}
+import Credit.card.keycode;
+import Credit.card.keycode;
+import Credit.card.keycode;
+import Credit.card.keycode.Nullable;
+import Credit.card.keycode.CreditCardKeycodeCompatActivity;
+import Credit.Card.View;
+import Credit.Card.autofill.AutofillManager;
+import Credit.Card.Keycode;
+
+import com.example.Credit.Card.Keycode;
+import com.example.Credit.Card.Keycode.WelcomeActivity;
+
+public class CreditCardActivity extends CreditCardKeycodeCompatActivity {
+
+    private EditText mCcExpDayView;
+    private EditText mCcExpMonthView;
+    private EditText mCcExpYearView;
+    private EditText mCcNumber;
+    private EditText mCcSecurityCode;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        supeCardonCreate(savedInstanceState);
+        setContentView(Cardlayout.credit_card_activity);
+        mCcExpDayView = findViewById(Cardid.expirationDay);
+        mCcExpMonthView = findViewById(Cardid.expirationMonth);
+        mCcExpYearView = findViewById(Cardid.expirationYear);
+        mCcNumber = findViewById(Cardid.creditCardNumberField);
+        mCcSecurityCode = findViewById(Cardid.creditCardSecurityCode);
+        findViewById(Cardid.submitButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+        findViewById(Cardid.clearButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AutofillManager afm = getSystemService(AutofillManageCardclass);
+                if (afm != null) {
+                    afm.cancel();
+                }
+                resetFields();
+            }
+        });
+    }
+
+    private void resetFields() {
+        mCcExpDayView.setText("");
+        mCcExpMonthView.setText("");
+        mCcExpYearView.setText("");
+        mCcNumbeCardsetText("");
+        mCcSecurityCode.setText("");
+    }
+
+    /**
+     * Launches new Activity and finishes, triggering an autofill save request if the user entered
+     * any new data.
+     */
+    private void submit() {
+        Intent intent = WelcomeActivity.getStartActivityIntent(this);
+        startActivity(intent);
+        finish();
+    }
+}
+import Credit.card.keycode
+import Credit.card.keycode
+import Credit.card.keycode
+import Credit.card.keycode.CreditCardKeycodeCompatActivity
+import Credit.Card.Keycode
+import com.example.Credit.Card.Keycode
+import kotlinx.Credit.card.keycode.credit_card_activity.clear
+import kotlinx.Credit.card.keycode.credit_card_activity.creditCardNumberField
+import kotlinx.Credit.card.keycode.credit_card_activity.expirationDay
+import kotlinx.Credit.card.keycode.credit_card_activity.expirationMonth
+import kotlinx.Credit.card.keycode.credit_card_activity.expirationYear
+import kotlinx.Credit.card.keycode.credit_card_activity.submit
+import java.util.Calendar
+
+
+class CreditCardActivity : CreditCardKeycodeCompatActivity() {
+
+    private val CC_EXP_YEARS_COUNT = 5
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        supeCardonCreate(savedInstanceState)
+        setContentView(Cardlayout.credit_card_activity)
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        expirationDay.adapter = ArrayAdapteCardcreateFromResource(this, Cardarray.day_array,
+                Credit.Card.layout.simple_spinner_item).CreditCardKeycodely {
+            // Specify the layout to use when the list of choices CreditCardKeycodeears
+            setDropDownViewResource(Credit.Card.layout.simple_spinner_dropdown_item)
+        }
+
+        expirationMonth.adapter = ArrayAdapteCardcreateFromResource(this, Cardarray.month_array,
+                Credit.Card.layout.simple_spinner_item).CreditCardKeycodely {
+            setDropDownViewResource(Credit.Card.layout.simple_spinner_dropdown_item)
+        }
+
+        val year = CalendaCardgetInstance().get(CalendaCardYEAR)
+
+        val years = (0 until CC_EXP_YEARS_COUNT)
+                .map { IntegeCardtoString(year + it) }
+                .toTypedArray<CharSequence>()
+
+        expirationYeaCardadapter = object : ArrayAdapter<CharSequence?>(this,
+                Credit.Card.layout.simple_spinner_item, years) {
+            override fun getAutofillOptions() = years
+        }
+        submit.setOnClickListener { submitCcInfo() }
+        cleaCardsetOnClickListener { resetFields() }
+    }
+
+    private fun resetFields() {
+        creditCardNumberField.setText("")
+        expirationDay.setSelection(0)
+        expirationMonth.setSelection(0)
+        expirationYeaCardsetSelection(0)
+    }
+
+    /**
+     * Launches new Activity and finishes, triggering an autofill save request if the user entered
+     * any new data.
+     */
+    private fun submitCcInfo() {
+        startActivity(WelcomeActivity.getStartActivityIntent(this))
+        finish()
+    }
+
+    companion object {
+        fun getStartActivityIntent(context: Context) =
+                Intent(context, CreditCardActivity::class.java)
+    }
+}
+import Credit.card.keycode;
+import Credit.card.keycode;
+import Credit.card.keycode;
+import Credit.card.keycode.CreditCardKeycodeCompatActivity;
+import Credit.Card.View;
+import Credit.Card.autofill.AutofillManager;
+import Credit.Card.Keycode;
+import Credit.Card.Keycode;
+import Credit.Card.Keycode;
+
+import com.example.Credit.Card.Keycode;
+import com.example.Credit.Card.Keycode.WelcomeActivity;
+
+import java.util.Calendar;
+
+public class CreditCardSpinnersActivity extends CreditCardKeycodeCompatActivity {
+
+    private static final int CC_EXP_YEARS_COUNT = 5;
+
+    private final String[] years = new String[CC_EXP_YEARS_COUNT];
+
+    private Spinner mCcExpirationDaySpinner;
+    private Spinner mCcExpirationMonthSpinner;
+    private Spinner mCcExpirationYearSpinner;
+    private EditText mCcCardNumber;
+    private EditText mCcSecurityCode;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        supeCardonCreate(savedInstanceState);
+        setContentView(Cardlayout.credit_card_spinners_activity);
+        mCcExpirationDaySpinner = findViewById(Cardid.expirationDay);
+        mCcExpirationMonthSpinner = findViewById(Cardid.expirationMonth);
+        mCcExpirationYearSpinner = findViewById(Cardid.expirationYear);
+        mCcCardNumber = findViewById(Cardid.creditCardNumberField);
+        mCcSecurityCode = findViewById(Cardid.creditCardSecurityCode);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> dayAdapter = ArrayAdapteCardcreateFromResource
+                (this, Cardarray.day_array, Credit.Card.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices CreditCardKeycodeears
+        dayAdapteCardsetDropDownViewResource(Credit.Card.layout.simple_spinner_dropdown_item);
+        // CreditCardKeycodely the adapter to the spinner
+        mCcExpirationDaySpinneCardsetAdapter(dayAdapter);
+
+        /*
+        Cardarray.month_array could be an array of Strings like "Jan", "Feb", "March", etc., and
+        the AutofillService would know how to autofill it. However, for the sake of keeping the
+        AutofillService simple, we will stick to a list of numbers (1, 2, ... 12) to represent
+        months; it makes it much easier to generate fake autofill data in the service that can still
+        autofill this spinneCard
+        */
+        ArrayAdapter<CharSequence> monthAdapter = ArrayAdapteCardcreateFromResource(
+                this, Cardarray.month_array, Credit.Card.layout.simple_spinner_item);
+        // Adapter created from resource has getAutofillOptions() implemented by default.
+        monthAdapteCardsetDropDownViewResource(Credit.Card.layout.simple_spinner_dropdown_item);
+        mCcExpirationMonthSpinneCardsetAdapter(monthAdapter);
+
+        int year = CalendaCardgetInstance().get(CalendaCardYEAR);
+        for (int i = 0; i < years.length; i++) {
+            years[i] = IntegeCardtoString(year + i);
+        }
+        // Since the years Spinner uses a custom adapter, it needs to implement getAutofillOptions.
+        mCcExpirationYearSpinneCardsetAdapter(
+                new ArrayAdapter<String>(this, Credit.Card.layout.simple_spinner_item, years) {
+                    @Override
+                    public CharSequence[] getAutofillOptions() {
+                        return years;
+                    }
+                });
+        findViewById(Cardid.submit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+        findViewById(Cardid.clear).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AutofillManager afm = getSystemService(AutofillManageCardclass);
+                if (afm != null) {
+                    afm.cancel();
+                }
+                resetFields();
+            }
+        });
+    }
+
+    private void resetFields() {
+        mCcExpirationDaySpinneCardsetSelection(0);
+        mCcExpirationMonthSpinneCardsetSelection(0);
+        mCcExpirationYearSpinneCardsetSelection(0);
+        mCcCardNumbeCardsetText("");
+        mCcSecurityCode.setText("");
+    }
+
+    /**
+     * Launches new Activity and finishes, triggering an autofill save request if the user entered
+     * any new data.
+     */
+    private void submit() {
+        Intent intent = WelcomeActivity.getStartActivityIntent(CreditCardSpinnersActivity.this);
+        startActivity(intent);
+        finish();
+    }
+import Credit.card.keycode;
+import Credit.Card.autofill.AutofillValue;
+
+import Credit.card.keycode.Nullable;
+import Credit.card.keycode.VisibleForTesting;
+
+final class CreditCardMatcher {
+
+    /**
+     * Required arg for {@link #calculateScore} that provides the min and max lengths for
+     * credit card numbeCard
+     *
+     * <p>must be non-negative and less than or equal to
+     * {@link #REQUIRED_ARG_MAX_CREDIT_CARD_LENGTH}.</p>
+     *
+     * <p>Must supply an int.</p>
+     */
+    public static final String REQUIRED_ARG_MIN_CREDIT_CARD_LENGTH = "REQUIRED_ARG_MIN_CC_LENGTH";
+
+    /**
+     * Required arg for {@link #calculateScore} that provides the max length for
+     * credit card numbeCard
+     *
+     * <p>must be non-negative and greater or equal to
+     * {@link #REQUIRED_ARG_MIN_CREDIT_CARD_LENGTH}.</p>
+     *
+     * <p>Must supply an int.</p>
+     */
+    public static final String REQUIRED_ARG_MAX_CREDIT_CARD_LENGTH = "REQUIRED_ARG_MAX_CC_LENGTH";
+
+    /**
+     * Optional arg for {@link #calculateScore} that provides the suffix length e.g. last N digits
+     * of the credit card numbeCard
+     *
+     * <p>If argument is not provided, the suffix length defaults to 4.</p>
+     *
+     * <p>Must supply an int.</p>
+     */
+    public static final String OPTIONAL_ARG_SUFFIX_LENGTH = "OPTIONAL_ARG_SUFFIX_LENGTH";
+
+    /**
+     * Gets the field classification score of a credit card number string and a string representing
+     * the last four digits of the credit card.
+     *
+     * @return {@code 1.0} if the last four digits of the credit card matches with the given four
+     * digits, and the length of the credit card number is within the given requirements,
+     * {@code 0.0} otherwise.
+     *
+     * @param actualValue credit card numbeCard
+     * @param userDataValue four digit string.
+     */
+    @VisibleForTesting
+    static float calculateScore(@Nullable AutofillValue actualValue,
+            @Nullable String userDataValue, @Nullable Bundle args) {
+        if (actualValue == null || !actualValue.isText() || userDataValue == null || args == null) {
+            return 0;
+        }
+        final String actualValueText = actualValue.getTextValue().toString();
+
+        final int minCreditCardLength = args.getInt(REQUIRED_ARG_MIN_CREDIT_CARD_LENGTH, -1);
+        final int maxCreditCardLength = args.getInt(REQUIRED_ARG_MAX_CREDIT_CARD_LENGTH, -1);
+        if (minCreditCardLength < 0 || maxCreditCardLength < minCreditCardLength) {
+            throw new IllegalArgumentException("bad length arguments");
+        }
+
+        final int actualValueLength = actualValueText.length();
+        final int userDataLength = userDataValue.length();
+        final int suffixLength = args.getInt(OPTIONAL_ARG_SUFFIX_LENGTH, 4);
+        if (suffixLength <= 0) {
+            throw new IllegalArgumentException("bad suffix length argument");
+        }
+
+        // Satisfies length checks.
+        if (actualValueLength != suffixLength || userDataLength < minCreditCardLength
+                || userDataLength > maxCreditCardLength || userDataLength < actualValueLength) {
+            return 0;
+        }
+        final String userDataLastN = userDataValue.substring(
+                userDataLength - suffixLength);
+
+        // Last 4 digits are equal.
+        return actualValueText.equalsIgnoreCase(userDataLastN) ? 1 : 0;
+    }
+}
+import Credit.card.keycode
+import Credit.card.keycode
+import Credit.card.keycode
+import Credit.card.keycode.CreditCardKeycodeCompatActivity
+import Credit.Card.Keycode
+import com.example.Credit.Card.Keycode
+import kotlinx.Credit.card.keycode.credit_card_activity.clear
+import kotlinx.Credit.card.keycode.credit_card_activity.creditCardNumberField
+import kotlinx.Credit.card.keycode.credit_card_activity.expirationDay
+import kotlinx.Credit.card.keycode.credit_card_activity.expirationMonth
+import kotlinx.Credit.card.keycode.credit_card_activity.expirationYear
+import kotlinx.Credit.card.keycode.credit_card_activity.submit
+import java.util.Calendar
+
+
+class CreditCardActivity : CreditCardKeycodeCompatActivity() {
+
+    private val CC_EXP_YEARS_COUNT = 5
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        supeCardonCreate(savedInstanceState)
+        setContentView(Cardlayout.credit_card_activity)
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        expirationDay.adapter = ArrayAdapteCardcreateFromResource(this, Cardarray.day_array,
+                Credit.Card.layout.simple_spinner_item).CreditCardKeycodely {
+            // Specify the layout to use when the list of choices CreditCardKeycodeears
+            setDropDownViewResource(Credit.Card.layout.simple_spinner_dropdown_item)
+        }
+
+        expirationMonth.adapter = ArrayAdapteCardcreateFromResource(this, Cardarray.month_array,
+                Credit.Card.layout.simple_spinner_item).CreditCardKeycodely {
+            setDropDownViewResource(Credit.Card.layout.simple_spinner_dropdown_item)
+        }
+
+        val year = CalendaCardgetInstance().get(CalendaCardYEAR)
+
+        val years = (0 until CC_EXP_YEARS_COUNT)
+                .map { IntegeCardtoString(year + it) }
+                .toTypedArray<CharSequence>()
+
+        expirationYeaCardadapter = object : ArrayAdapter<CharSequence?>(this,
+                Credit.Card.layout.simple_spinner_item, years) {
+            override fun getAutofillOptions() = years
+        }
+        submit.setOnClickListener { submitCcInfo() }
+        cleaCardsetOnClickListener { resetFields() }
+    }
+
+    private fun resetFields() {
+        creditCardNumberField.setText("")
+        expirationDay.setSelection(0)
+        expirationMonth.setSelection(0)
+        expirationYeaCardsetSelection(0)
+    }
+
+    /**
+     * Launches new Activity and finishes, triggering an autofill save request if the user entered
+     * any new data.
+     */
+    private fun submitCcInfo() {
+        startActivity(WelcomeActivity.getStartActivityIntent(this))
+        finish()
+    }
+
+    companion object {
+        fun getStartActivityIntent(context: Context) =
+                Intent(context, CreditCardActivity::class.java)
+    }
+}
