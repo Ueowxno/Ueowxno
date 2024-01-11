@@ -1,0 +1,323 @@
+#7
+
+
+
+"html - What's the purpose of dropdown-toggle class in bootstrap dropdowns? - Stack Overflow" https://stackoverflow.com/questions/41308134/whats-the-purpose-of-dropdown-toggle-class-in-bootstrap-dropdowns
+
+
+
+
+
+
+Stack Overflow
+Products
+Join Stack Overflow to find the best answer to your technical question, help others answer theirs.
+
+What's the purpose of dropdown-toggle class in bootstrap dropdowns?
+Asked 7 years ago
+Modified 1 year, 4 months ago
+Viewed 16k times
+7
+
+Dropdown menus work perfectly with or without the dropdown-toggle bootstrap class being applied to <button> element,so why use it in the first place?
+
+htmltwitter-bootstrapmenudropdown
+Share
+Improve this question
+Follow
+edited Jan 17, 2020 at 14:16
+asked Dec 23, 2016 at 21:38
+
+MrShabana
+37711 gold badge44 silver badges1212 bronze badges
+Add a comment
+
+Report this ad
+3 Answers
+Sorted by:
+
+Highest score (default)
+9
+
+The dropdown-toggle class adds the outline: 0; on :focus to the button, so when you click on the button it will not have the surrounding blue border of the "active" element.
+
+Check the next two bottons:
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<div class="container">
+  <h2>Dropdowns</h2>
+  <p>The .divider class is used to separate links inside the dropdown menu with a thin horizontal line:</p>
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Tutorials - no border
+      <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#">HTML</a></li>
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">JavaScript</a></li>
+      <li class="divider"></li>
+      <li><a href="#">About Us</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Dropdowns</h2>
+  <p>The .divider class is used to separate links inside the dropdown menu with a thin horizontal line:</p>
+  <div class="dropdown">
+    <button class="btn btn-default" type="button" data-toggle="dropdown">Tutorials - with border
+      <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#">HTML</a></li>
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">JavaScript</a></li>
+      <li class="divider"></li>
+      <li><a href="#">About Us</a></li>
+    </ul>
+  </div>
+</div>
+Expand snippet
+Share
+Improve this answer
+Follow
+answered Dec 23, 2016 at 22:03
+
+Dekel
+61.3k1111 gold badges104104 silver badges130130 bronze badges
+i tested and they both have the border, maybe it has another use. – 
+MrShabana
+ Dec 23, 2016 at 22:12
+1
+Thanks, you are right, but Firefox displays the dotted line anyway, that's why i got confused. – 
+MrShabana
+ Dec 23, 2016 at 22:46
+1
+I just checked in firefox and there is no outline in any of them. It's probably a chrome-fix (and I guess safari/opera as well). – 
+Dekel
+ Dec 23, 2016 at 22:49
+you are right,i think i need some sleep lol :) , FF doesn't display the outlines anyway, thanks again. – 
+MrShabana
+ Dec 23, 2016 at 22:57
+Add a comment
+4
+
+It adds the following CSS properties, but they impact when dropdown button's content is displayed:
+
+
+
+
+
+
+
+
+
+
+
+It's basically some button inner box-shadow when .open, as well as color, background-color, border-color and outline (on :focus) removal. Here a comparison between the two:
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    With .dropdown-toggle <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Action</a>
+    </li>
+    <li><a href="#">Another action</a>
+    </li>
+    <li><a href="#">Something else here</a>
+    </li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a>
+    </li>
+  </ul>
+</div>
+
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Without .dropdown-toggle <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Action</a>
+    </li>
+    <li><a href="#">Another action</a>
+    </li>
+    <li><a href="#">Something else here</a>
+    </li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a>
+    </li>
+  </ul>
+</div>
+Expand snippet
+Difference tested in Chrome, Opera & Safari:
+
+
+
+
+
+Share
+Improve this answer
+Follow
+edited Dec 23, 2016 at 22:52
+answered Dec 23, 2016 at 22:14
+
+Syden
+8,47555 gold badges2626 silver badges4545 bronze badges
+I get what you mean, but there's no visual difference what so ever! even the outline is still there, is it because i'm using firefox? – 
+MrShabana
+ Dec 23, 2016 at 22:39
+I tested also with IE, same, no visual difference. – 
+MrShabana
+ Dec 23, 2016 at 22:42
+Isn't this (almost) exactly the same as in my answer? you can voteup mince :) (cost no money, you know...) – 
+Dekel
+ Dec 23, 2016 at 22:47
+I did vote you up, but he answered right first, so i gave him the 'Tick',thanks for help Dekel, Greatly appreciated. – 
+MrShabana
+ Dec 23, 2016 at 22:49
+@eghawk2k, my comment was for Syden :) – 
+Dekel
+ Dec 23, 2016 at 22:50
+Show 2 more comments
+0
+
+                        <div class="dropdown-menu dropdown-menu-right mailbox scale-up">
+                            <ul>
+                                <li>
+                                    <div class="drop-title">Pedidos preparados</div>
+                                </li>
+                                <li>
+                                    <div><p>hola</p></div>
+                                </li>
+                            </ul>
+                        </div>
+Share
+Improve this answer
+Follow
+answered Aug 14, 2022 at 23:57
+
+Jean Vega salazar
+1
+1
+As it’s currently written, your answer is unclear. Please edit to add additional details that will help others understand how this addresses the question asked. You can find more information on how to write good answers in the help center. – 
+Community
+Bot
+ Aug 18, 2022 at 7:57
+Add a comment
+Your Answer
+
+Sign up or log in
+Post as a guest
+Name
+
+Email
+Required, but never shown
+
+
+By clicking “Post Your Answer”, you agree to our terms of service and acknowledge that you have read and understand our privacy policy and code of conduct.
+
+Not the answer you're looking for? Browse other questions tagged htmltwitter-bootstrapmenudropdown or ask your own question.
+The Overflow Blog
+How long till we run out of fresh data to train the latest AI?
+Featured on Meta
+Update to our Advertising Guidelines
+Sites can now request to enable a banner to warn about their policy on...
+Temporary policy: Generative AI (e.g., ChatGPT) is banned
+Linked
+1
+BootStrap dropdown class unnecessary?
+Related
+0
+Bootstrap3, how to have dropdown menu on the toggle button?
+39
+Bootstrap dropdown: events for the 'navbar-toggle'?
+0
+Twitter bootstrap dropdown toggle
+0
+removing "class" and "data-toggle" from bootstrap dropdown
+0
+How to make a dropdown-menu and dropdown-toggle class that behaves like a select Form element
+2
+Bootstrap's .dropdown('toggle') works a bit too well: dropdown is then unusable
+1
+BootStrap dropdown class unnecessary?
+0
+In jQuery what does !clickover.hasClass('navbar-toggler') mean?
+0
+Dropdown-toggle should be a link as well
+1
+What is the use of the 'data-toggle="collapse" button' in Bootstrap Navbar?
+Hot Network Questions
+Is the speed of Earth's spinning constant over a given 24 hours?
+What’s the story behind the Armstrong shoe phone gag?
+Book about a space war with lizards and mind-controlling space turtles
+Resources for studying the mathematical foundations of machine learning, for someone from a math/physics background
+Why is there sometimes a resistor just before ground?
+HTTPonly token without CSRF is safe?
+Does Newton's method converge for all polynomials?
+Is it academically correct to name your own theorems?
+OK to remove sheathe and have some wires bypass box?
+Is there a name for the argumentative tactic where you play dumb and ask for extreme simplification?
+Is it reasonable to argue that my party should start with inspiration, since I have the Musician feat?
+How can an International Court of Justice order to stop the war in Gaza be enforced?
+When is the Query "Done"?
+Massless limit of the Dirac theory
+Does a recommendation letter from a professor at the university I'm applying to enhance my application?
+What number replaces the question mark and why?
+How well should one understand a PhD's topic when choosing applying for the PhD?
+What is this metal plug thing on my outside wall?
+Is "a Japanese novel" written in Japanese or can it be a translation?
+Why were MIT, Harvard, UPenn specifically questioned over antisemitism?
+Can airlines leave you stranded?
+Do you know of any such fonts?
+How crucial is it for Christians to 'gain a testimony' validating the truth of their beliefs?
+In what cases are counter-terrorist operations justified?
+ Question feed
+
+STACK OVERFLOW
+Questions
+Help
+PRODUCTS
+Teams
+Advertising
+Collectives
+Talent
+COMPANY
+About
+Press
+Work Here
+Legal
+Privacy Policy
+Terms of Service
+Contact Us
+Cookie Settings
+Cookie Policy
+STACK EXCHANGE NETWORK
+Technology
+Culture & recreation
+Life & arts
+Science
+Professional
+Business
+API
+Data
+Blog
+Facebook
+Twitter
+LinkedIn
+Instagram
+Site design / logo © 2024 Stack Exchange Inc; user contributions licensed under CC BY-SA. rev 2024.1.3.2953
+
+
+Orihinal na teksto
+I-rate ang pagsasaling ito
+Gagamitin ang iyong feedback para makatulong na pahusayin ang Google Translate
+
+
