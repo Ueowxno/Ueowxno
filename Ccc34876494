@@ -1,0 +1,249 @@
+#14
+
+
+"Submenu dropdown doesn't work on mobile - Bootstrap Studio Help - Bootstrap Studio Forum" https://forum.bootstrapstudio.io/t/submenu-dropdown-doesnt-work-on-mobile/9548
+
+
+
+
+
+
+
+Skip to main content
+
+
+Log In
+
+
+Submenu dropdown doesn’t work on mobile
+Bootstrap Studio Help
+
+NeroNekro
+Oct '22
+Hello there,
+
+I create a navbar with a dropdown menu. the menu works on a normal screen as expected, but on mobile devices the nav element close and I can’t select the menu from submenu.
+
+<nav id="mainNav" class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark" style="color: rgb(33, 37, 41);">
+    <div class="container"><a class="navbar-brand" href="#page-top"></a><button class="navbar-toggler navbar-toggler-right" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button><img src="logo-1.png" width="162" height="39" />
+        <div id="navbarResponsive" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto text-uppercase">
+                <li class="nav-item"><a class="nav-link" href="#services">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#portfolio">port</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">about</a></li>
+                <li class="nav-item"><a class="nav-link" href="#team">team</a></li>
+                <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">Info </a>
+                    <div class="dropdown-menu" style="margin-right: 0px;position: absolute;margin-left: -175px;"><a class="dropdown-item" href="#">FAQ</a><a class="dropdown-item" href="#">terms</a><a class="dropdown-item" href="#">privacy</a></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+Bootstrap Version: 5.2
+jQuery Version: 3.6.0
+Bootstrap Studio: 6.1.3
+
+On stack overflow I found snippet, now the submenu will be opened, but the navbar close like before:
+
+<script>let dropdowns = document.querySelectorAll('.dropdown-toggle')
+                dropdowns.forEach((dd)=>{
+                    dd.addEventListener('click', function (e) {
+                        var el = this.nextElementSibling
+                        el.style.display = el.style.display==='block'?'none':'block'
+                    })
+                })
+      </script>
+How to fix this problem?
+
+Best Regards
+NeroNekro
+
+
+
+
+created
+Oct '22
+last reply
+Oct '22
+3
+replies
+
+kuligaposten
+
+1
+Oct '22
+On the dropdown-menu you have a inline-style that set the dropdown-menu margin-left: -175px;, on mobile view the dropdown-menu opens outside the view.
+Remove the inline-style from the dropdown-menu. From the options panel set the alignment to End on the dropdown-menu.
+
+Delete the inline script tag
+add this to a javascript file
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+    "use strict";
+
+    const mainNav = document.querySelector("#mainNav");
+    if (mainNav) {
+      const navbarCollapse = document.getElementById("navbarResponsive");
+      let collapse = new bootstrap.Collapse(navbarCollapse, {
+        toggle: false,
+      });
+      const dropdowns = document.querySelectorAll(".dropdown-toggle");
+      const dropdownList = [...dropdowns].map((dropdownToggleEl) => new bootstrap.Dropdown(dropdownToggleEl));
+
+      mainNav.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", (e) => {
+          e.preventDefault();
+          let anchorLink = anchor.getAttribute(["href"]);
+          if (anchorLink === "#") return;
+          let anchorID = document.querySelector(anchorLink);
+          if (anchorID) {
+            let offset = mainNav.offsetHeight,
+              position = anchorID.offsetTop;
+            if (mainNav.offsetTop === 0 && navbarCollapse.classList.contains("show")) {
+              offset += -navbarCollapse.offsetHeight;
+            }
+            window.scrollTo({
+              top: position - offset,
+              behavior: "smooth",
+            });
+            collapse.hide();
+          } else alert(`debug: ${anchorLink} does not exist on the page`);
+        });
+      });
+      navbarCollapse.addEventListener("shown.bs.collapse", () => {
+        dropdownList.forEach((dd) => dd.show());
+      });
+      navbarCollapse.addEventListener("hidden.bs.collapse", () => {
+        dropdownList.forEach((dd) => dd.hide());
+      });
+      window.addEventListener("resize", () => dropdownList.forEach((dd) => dd.hide(),collapse.hide()));
+    }
+  },
+  false
+);
+The navbar will open the dropdown menus when click the navbarToggle so the are open. When click an anchor link will it scroll to the anchor and collapse the mobile menu.
+
+Edit
+if you have other dropdowns on the page change
+const dropdowns = document.querySelectorAll(".dropdown-toggle");
+to
+const dropdowns = document.querySelectorAll("#mainNav .dropdown-toggle");
+
+
+
+
+NeroNekro
+Oct '22
+@kuligaposten thanks for your help. Your script open all dropdown directly and I can’t scroll threw the navbar in mobile view. Do you have a solution for this problem too?
+
+@printninja at the moment, the page isn’t online.
+
+
+
+
+kuligaposten
+Oct '22
+Highlight the nav component in the navbar and in the options panel you have nav-options switch on Scroll when Collapsed
+add this in a CSS file
+CSS
+
+.navbar-nav::-webkit-scrollbar {
+  width: 1.5vw;
+}
+
+.navbar-nav::-webkit-scrollbar-thumb {
+  background-color: var(--bs-gray-600);
+  border-radius: 15px;
+}
+
+.navbar-nav::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bs-info);
+}
+
+.navbar-nav::-webkit-scrollbar-track {
+  background-color: var(--bs-dark);
+}
+
+.navbar-nav::-webkit-scrollbar-track:hover {
+  background-color: #212020a4;
+}
+
+I thought you wanted the dropdowns to be open on the mobile menu with the script you shown us
+If that wasn’t the case, you can replace the javascript with this
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+    "use strict";
+
+    const mainNav = document.querySelector("#mainNav");
+    if (mainNav) {
+      const navbarCollapse = document.getElementById("navbarResponsive");
+      let collapse = new bootstrap.Collapse(navbarCollapse, {
+        toggle: false,
+      });
+      mainNav.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", (e) => {
+          e.preventDefault();
+          let anchorLink = anchor.getAttribute(["href"]);
+          if (anchorLink === "#") return;
+          let anchorID = document.querySelector(anchorLink);
+          if (anchorID) {
+            let offset = mainNav.offsetHeight,
+              position = anchorID.offsetTop;
+            if (mainNav.offsetTop === 0 && navbarCollapse.classList.contains("show")) {
+              offset += -navbarCollapse.offsetHeight;
+            }
+            window.scrollTo({
+              top: position - offset,
+              behavior: "smooth",
+            });
+            collapse.hide();
+          } else alert(`debug: ${anchorLink} does not exist on the page`);
+        });
+      });
+      window.addEventListener("resize", () => collapse.hide()));
+    }
+  },
+  false
+);
+
+
+
+Reply
+New & Unread Topics
+
+Editing keyframe CSS
+4
+Bootstrap Studio Help
+Aug '23
+
+Fontawesome PSI notification
+6
+Bootstrap Studio Help
+Jan '23
+
+Hiding Website from Search Engines
+3
+Bootstrap Studio Help
+Jun '23
+
+Add obscure.js to BSS. How to?
+15
+Bootstrap Studio Help
+Feb '23
+
+Custom code bss5
+4
+Bootstrap Studio Help
+Sep '23
+Want to read more? Browse other topics in 
+Bootstrap Studio Help
+ or view latest topics.
+
+Orihinal na teksto
+I-rate ang pagsasaling ito
+Gagamitin ang iyong feedback para makatulong na pahusayin ang Google Translate
+
