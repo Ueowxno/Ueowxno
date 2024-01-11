@@ -1,0 +1,422 @@
+#26
+
+
+￼
+
+Toggle sidebar
+
+￼
+
+PHP Tutorials
+
+PHP Introduction
+
+PHP Index Page
+
+PHP Introduction
+
+Learn PHP
+
+How PHP works
+
+PHP Syntax
+
+PHP Variable
+
+PHP Echo
+
+PHP Print
+
+PHP Include vs Require
+
+PHP Data Types
+
+PHP Data Types
+
+PHP Datatype String
+
+PHP Datatype Integer
+
+PHP Datatype Float
+
+PHP Datatype Boolean
+
+PHP Datatype Array
+
+PHP Datatype Object
+
+PHP Datatype Null
+
+PHP Operators
+
+PHP Operators
+
+PHP Arithmetic Operators
+
+PHP Assignment Operators
+
+PHP Comparison Operators
+
+PHP Increment/Decrement
+
+PHP Logical Operators
+
+PHP String Operators
+
+PHP Array Operators
+
+PHP String
+
+PHP String
+
+PHP String Heredoc
+
+PHP String Nowdoc
+
+PHP strtolower & strtoupper
+
+PHP ucfirst lcfirst
+
+PHP strpos with $.ajax
+
+PHP strpos Function
+
+PHP strlen Function
+
+PHP substr Function
+
+PHP str_replace Function
+
+PHP Math Functions
+
+PHP Math
+
+PHP Date and Time
+
+PHP Date and Time
+
+PHP Regular Expression
+
+PHP Regular Expression
+
+State Management
+
+PHP Cookies
+
+PHP Sessions
+
+PHP Function
+
+PHP Functions
+
+PHP Empty Functions
+
+PHP Explode Function
+
+PHP sha1 Function
+
+PHP md5 Function
+
+PHP trim() Function
+
+PHP implode() Function
+
+PHP Constants
+
+PHP Conditional Statements
+
+PHP Conditional Statements
+
+PHP if Condition
+
+PHP if else Condition
+
+PHP if-elseif-else Condition
+
+PHP Switch Statement
+
+PHP Looping
+
+PHP While Loop
+
+PHP Do While Loop
+
+PHP Foreach Loop
+
+PHP For Loop
+
+PHP Arrays
+
+PHP Arrays
+
+PHP Indexed Arrays
+
+PHP Associative Arrays
+
+PHP MD Arrays
+
+Create Dynamic PHP Arrays
+
+Merge Arrays
+
+PHP Add Array Element
+
+PHP Delete Array Element
+
+PHP Sorting
+
+PHP Sorting Arrays
+
+PHP Character Sort
+
+PHP Sort Function
+
+PHP rsort Characters
+
+PHP rsort Numeric
+
+PHP asort Function
+
+PHP ksort Function
+
+PHP arsort Function
+
+PHP krsort Function
+
+PHP OOP
+
+PHP Oops Concept
+
+PHP Constructor
+
+PHP Destructor
+
+PHP Access Specifiers
+
+PHP Inheritance
+
+PHP Abstract Class
+
+PHP Interface
+
+PHP Encapsulation
+
+PHP Polymorphism
+
+PHP Coding
+
+PHP Sample Code
+
+PHP Super Globals
+
+PHP Super Globals
+
+PHP $Globals
+
+PHP $_Server
+
+PHP $_Request
+
+PHP $_Files
+
+PHP $_Get
+
+PHP $_Post
+
+Multi Page Form
+
+PHP Validation
+
+Form Validation
+
+Contact Form Validation
+
+Sanitize and Validate Input
+
+Session
+
+Login Form with Sessions
+
+Miscellaneous
+
+Form Submission
+
+Email Verification
+
+Strong Password Generator
+
+Setup Google Captcha
+
+Email Verification Script
+
+Read More Link
+
+PHP Rest API in Codeigniter
+
+Paypal Integration
+
+Paypal OAuth Login
+
+Paypal Integration
+
+Paypal IPN
+
+Paypal Shopping Cart
+
+Shopping Cart
+
+Express Checkout API
+
+Pizza Order System
+
+Coupon Code using PDO
+
+Paypal - Single Product
+
+Paypal - Digital Goods
+
+Paypal Payments/Refunds
+
+Credit Card Payment
+
+Adaptive Payments
+
+Mass Payment
+
+Parallel Payments
+
+Recurring Payments
+
+Installment Plan
+
+Donate Button
+
+Refund Process
+
+Transaction Details
+
+php tutorial - PayPal Credit Card Payment in PHP - php programming - learn php - php code - php script
+
+Home PHP Tutorial PayPal Credit Card Payment in PHP
+
+
+PayPal, Credit Card Payment API (means PayPal PHP merchant SDK) deals to process a credit card payment or DoDirect Payment on your website.
+
+PayPal Credit Card Payment works in a few steps in the merchant’s website rather than going to the actual PayPal page and then logging in and returning back to the same.
+
+The key thing is, using PayPal Credit Card, the payment process is done on your web page only. As the name also depicts it is a direct payment.
+
+In our previous blog post, we have covered the PayPal Express Checkout for Digital Goods and Single Product using PayPal PHP SDK in which the payment process takes place in a different manner.
+
+In this blog post, we are going to explain how we can use PayPal credit card payment in PHP for Direct payment.
+
+￼
+
+Learn php - php tutorial - paypal-credit-card-payment - php examples - php programs
+
+Project Integration
+
+For configuration of PayPal PHP merchant SDK, add your account credentials in the configuration.php.
+
+You can find this file in downloaded project “root folder”.
+
+// Demo Signature Credential "acct1.UserName" => "Demo-facilitator_api1.outlook.com", "acct1.Password" => "PDRdd9FTWWU6FDBNKY", "acct1.Signature" => "ANGx9dddfhOMduIxwcbkuUqPMh-9L15RAO6JJD8BDCZSxcx8nbBWeDOIbzW1",
+
+click below button to copy the code. php tutorial - team
+
+
+Copy Code
+
+Then you will be ready to run the project. You can also refer the install.txt file given in the download code folder.
+
+Note: In demo we have used Sandbox and demo VISA card for testing, for making it live you have to edit configuration.php config array mode, sandbox to live as shown below.
+
+$config = array( // values: 'sandbox' for testing // 'live' for production "mode" => "sandbox", 'log.LogEnabled' => true, 'log.FileName' => '../PayPal.log', 'log.LogLevel' => 'FINE' );
+
+click below button to copy the code. php tutorial - team
+
+
+Copy Code
+
+Tutorial Scripts in detail
+
+Below are the details of the code used in this tutorial with proper explanation.
+
+Index.php
+
+In index.php contain code for showing product details. Here we demonstrate simple Bag seller site. When buyers click on the Buy now button it posts product information data to getcreditcard.php page.
+
+<html> <head> <title>paypal payments via credit card</title> <link rel="stylesheet" type="text/css" href="css/style.css"> </head> <body> <div id="main"> <center><h1>PayPal Payments via Credit Card</h1></center> <div id="main_wrapper"> <div id="container"> <h2>BEST SELLER</h2> <hr/> <form action="getcreditcard.php" method="POST"> <div id="product"> <img src="images/bag2.jpg"/> <p>Tas Ransel Orange bag</p> <h3>$21.10</h3> <input type="hidden" value="<?php echo base64_encode(1); ?>" name="id"> <!-- <a href="#" id="buynow"> Buy Now </a> --> <center><input type="submit" id="buynow" value="Buy Now"></center> </div> </form> <form action="getcreditcard.php" method="POST"> <div id="product"> <img src="images/bag.jpg"/> <p>Tas Ransel Jeans bag</p> <h3>$15.20</h3> <input type="hidden" value="<?php echo base64_encode(2); ?>" name="id"> <!-- <a href="#" id="buynow"> Buy Now </a> --> <center><input type="submit" id="buynow" value="Buy Now"></center> </div> </form> <form action="getcreditcard.php" method="POST"> <div id="product"> <img src="images/bag4.jpg"/> <p>Tas Ransel grey bag</p> <h3>$11.10</h3> <input type="hidden" value="<?php echo base64_encode(3); ?>" name="id"> <!-- <a href="#" id="buynow"> Buy Now </a> --> <center><input type="submit" id="buynow" value="Buy Now"></center> </div> </form> </div> </div> <img id="paypal_logo" style="float:right; margin: -30px -42px 0 0;" src="images/secure-paypal-logo.jpg"> </div> </body> </html>
+
+click below button to copy the code. php tutorial - team
+
+
+Copy Code
+
+Getcreditcard.php
+
+Getcreditcard.php page get credit card details and billing address and post all information to DoDirectPayment.php.
+
+<?php //Decode product id //If you want to use Database fetch product data by id here if (base64_decode($_POST['id']) == 1) { $p_price = 21.10; $p_currency = 'USD'; $p_name = 'Tas Ransel Orange bag'; } else if (base64_decode($_POST['id']) == 2) { $p_price = 15.20; $p_currency = 'USD'; $p_name = 'Tas Ransel Jeans bag'; } else if (base64_decode($_POST['id']) == 3) { $p_price = 11.10; $p_currency = 'USD'; $p_name = 'Tas Ransel grey bag'; } ?> <html> <head> <title>paypal payments via credit card</title> <link rel="stylesheet" type="text/css" href="css/style.css"> <link rel="stylesheet" type="text/css" href="css/loadding.css"> <link rel="stylesheet" type="text/css" href="css/popup-style.css"> </head> <body> <div id="main"> <center><h1>PayPal Payments via Credit Card</h1></center> <form action="DoDirectPayment.php" method="POST"> <div id="container"> <h2>Pay with my debit or credit card</h2> <hr/> <center> <h3>Billing Information</h3></center> <input type="hidden" name="paymentType" value="Sale"/> <input type="hidden" name="id" value="<?php echo $_POST['id']; ?>"/> <table style="width:100%"> <tr> <td id="td-label">First name : </td> <td><input type="text" name="firstName" id="name" placeholder="enter first name"></td> </tr> <tr> <td id="td-label">Last name : </td> <td><input type="text" name="lastName" id="name" placeholder="enter last name"></td> </tr> <tr> <td id="td-label">Card type : </td> <td> <select name="creditCardType"> <option value="Visa" selected="selected">Visa</option> <option value="MasterCard">MasterCard</option> <option value="Discover">Discover</option> <option value="Amex">American Express</option> </select> </td> </tr> <tr> <td id="td-label">Card number : </td> <td><input type="text" name="creditCardNumber" id="cardno" placeholder="enter card number" required="true"></td> </tr> <tr> <td id="td-label">Expiry date : </td> <td><div id="date-div"><select name="expDateMonth"> <option value="01">01</option> <option value="02">02</option> <option value="03">03</option> <option value="04">04</option> <option value="05">05</option> <option value="06">06</option> <option value="07">07</option> <option value="08">08</option> <option value="09">09</option> <option value="10">10</option> <option value="11">11</option> <option value="12">12</option> </select></div> <div id="year-div"> <select name="expDateYear"> <option value="2015">2015</option> <option value="2016">2016</option> <option value="2017">2017</option> <option value="2018">2018</option> <option value="2019">2019</option> <option value="2020">2020</option> </select> </div></td> </tr> <tr> <td id="td-label">CVV : </td> <td><div id="date-div"><input type="text" name="cvv2Number" id="cvv" placeholder="cvv" required="true"></div></td> </tr> <tr> <td id="td-label">Amount( USD ) : </td> <td><input type="text" name="amount" id="name" placeholder="enter amount " value="<?php echo $p_price; ?>" disabled="true"></td> </tr> </table> <center> <h3>Billing address</h3></center> <table style="width:100%"> <tr> <td id="td-label">Address 1 : </td> <td><input type="text" name="address1" id="name" placeholder="enter address "></td> </tr> <tr> <td id="td-label">Address 2 : </td> <td><input type="text" name="address2" id="name" placeholder="enter address"></td> </tr> <tr> <td id="td-label">City : </td> <td><input type="text" name="city" id="name" placeholder="enter city name"></td> </tr> <tr> <td id="td-label">State : </td> <td> <div id="date-div"> <select id="state" name="state"> <option value=""></option> <option value="AK">AK</option> <option value="AL">AL</option> <option value="AR">AR</option> <option value="AZ">AZ</option> <option value="CA" selected="">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DC">DC</option> <option value="DE">DE</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="IA">IA</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="MA">MA</option> <option value="MD">MD</option> <option value="ME">ME</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MO">MO</option> <option value="MS">MS</option> <option value="MT">MT</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="NE">NE</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NV">NV</option> <option value="NY">NY</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VA">VA</option> <option value="VT">VT</option> <option value="WA">WA</option> <option value="WI">WI</option> <option value="WV">WV</option> <option value="WY">WY</option> <option value="AA">AA</option> <option value="AE">AE</option> <option value="AP">AP</option> <option value="AS">AS</option> <option value="FM">FM</option> <option value="GU">GU</option> <option value="MH">MH</option> <option value="MP">MP</option> <option value="PR">PR</option> <option value="PW">PW</option> <option value="VI">VI</option> </select> </div> </td> </tr> <tr> <td id="td-label">Zip code : </td> <td> <input type="text" name="zip" id="name" placeholder="enter zip code (5 or 9 digits)"> </td> </tr> <tr> <td id="td-label">Country : </td> <td><input type="text" name="country" id="name" placeholder="enter country name"></td> </tr> <tr> <td id="td-label">Phone Number : </td> <td><input type="text" name="phone" id="name" placeholder="enter Phone number "></td> </tr> </table><br> <center><!--<a href="#" id="paynow"> Pay Now </a>--><input style=" width: 20%;"type="submit" id="buynow" name="DoDirectPaymentBtn" value="Pay Now"></center><br> </div> </form> <img id="paypal_logo" style="float:right; margin: -30px -42px 0 0;" src="images/secure-paypal-logo.jpg"> </div> <div id="pop2" class="simplePopup"> <div id="loader"> <div id="circularG"> <div id="circularG_1" class="circularG"> </div> <div id="circularG_2" class="circularG"> </div> <div id="circularG_3" class="circularG"> </div> <div id="circularG_4" class="circularG"> </div> <div id="circularG_5" class="circularG"> </div> <div id="circularG_6" class="circularG"> </div> <div id="circularG_7" class="circularG"> </div> <div id="circularG_8" class="circularG"> </div> </div> </div> </div> <script src="js/jquery.min.js"></script> <script src="js/jquery.simplePopup.js" type="text/javascript"></script> <script type="text/javascript"> $(document).ready(function() { $('input#buynow').click(function() { if ($('input#cardno').val() != '') { if ($('input#cvv').val() != '') { $('#pop2').simplePopup(); } } }); }); </script> </body> </html>
+
+click below button to copy the code. php tutorial - team
+
+
+Copy Code
+
+DoDirectPayment.php
+
+DoDirectPayment.php take all posted data and process to PayPal for payment.
+
+<?php /* * ********************************************************* DoDirectPayment.php Submits a credit card transaction to PayPal using a DoDirectPayment request. * ********************************************************* */ session_start(); require_once('../PPBootStrap.php'); if (base64_decode($_POST['id']) == 1) { $p_price = 21.10; $p_currency = 'USD'; $p_name = 'Tas Ransel Orange bag'; } else if (base64_decode($_POST['id']) == 2) { $p_price = 15.20; $p_currency = 'USD'; $p_name = 'Tas Ransel Jeans bag'; } else if (base64_decode($_POST['id']) == 3) { $p_price = 11.10; $p_currency = 'USD'; $p_name = 'Tas Ransel grey bag'; } /** * Get required parameters from the web form for the request */ $firstName = $_POST['firstName']; $lastName = $_POST['lastName']; /* * shipping adress */ $address = new AddressType(); $address->Name = "$firstName $lastName"; $address->Street1 = $_POST['address1']; $address->Street2 = $_POST['address2']; $address->CityName = $_POST['city']; $address->StateOrProvince = $_POST['state']; $address->PostalCode = $_POST['zip']; $address->Country = $_POST['country']; $address->Phone = $_POST['phone']; $orderTotal = new BasicAmountType(); $orderTotal->currencyID = $p_currency; $orderTotal->value = $p_price; $paymentDetails = new PaymentDetailsType(); $paymentDetails->ShipToAddress = $address; $itemDetails = new PaymentDetailsItemType(); $itemDetails->Name = $p_name; $itemDetails->Amount = $orderTotal; /* * Item quantity. This field is required when you pass a value for ItemCategory. */ $itemDetails->Quantity = '1'; /* * Indicates whether an item is digital or physical. */ $itemDetails->ItemCategory = 'Physical'; $paymentDetails->PaymentDetailsItem[0] = $itemDetails; $paymentDetails->OrderTotal = $orderTotal; if (isset($_REQUEST['notifyURL'])) { $paymentDetails->NotifyURL = $_REQUEST['notifyURL']; } $personName = new PersonNameType(); $personName->FirstName = $firstName; $personName->LastName = $lastName; //information about the payer $payer = new PayerInfoType(); $payer->PayerName = $personName; $payer->Address = $address; $payer->PayerCountry = $_POST['country']; $cardDetails = new CreditCardDetailsType(); $cardDetails->CreditCardNumber = $_POST['creditCardNumber']; /* * Type of credit card. For UK, only Maestro, MasterCard, Discover, and Visa are allowable. For Canada, only MasterCard and Visa are allowable and Interac debit cards are not supported. It is one of the following values: * Visa * MasterCard * Discover * Amex * Solo * Switch * Maestro: See note. `Note: If the credit card type is Maestro, you must set currencyId to GBP. In addition, you must specify either StartMonth and StartYear or IssueNumber.` */ $cardDetails->CreditCardType = $_POST['creditCardType']; $cardDetails->ExpMonth = $_POST['expDateMonth']; $cardDetails->ExpYear = $_POST['expDateYear']; $cardDetails->CVV2 = $_POST['cvv2Number']; $cardDetails->CardOwner = $payer; $ddReqDetails = new DoDirectPaymentRequestDetailsType(); $ddReqDetails->CreditCard = $cardDetails; $ddReqDetails->PaymentDetails = $paymentDetails; $ddReqDetails->PaymentAction = $_REQUEST['paymentType']; $doDirectPaymentReq = new DoDirectPaymentReq(); $doDirectPaymentReq->DoDirectPaymentRequest = new DoDirectPaymentRequestType($ddReqDetails); /* * ## Creating service wrapper object Creating service wrapper object to make API call and loading Configuration::getAcctAndConfig() returns array that contains credential and config parameters */ $paypalService = new PayPalAPIInterfaceServiceService(Configuration::getAcctAndConfig()); try { /* wrap API method calls on the service object with a try catch */ $doDirectPaymentResponse = $paypalService->DoDirectPayment($doDirectPaymentReq); } catch (Exception $ex) { include_once("../Error.php"); exit; } if (isset($doDirectPaymentResponse)) { ?> <html> <head> <title>paypal payments via credit card</title> <link rel="stylesheet" type="text/css" href="css/style.css"> </head> <body> <div id="main"> <div class="success_main_heading"> <center><h1>PayPal Payments via Credit Card</h1></center> </div> <div id="return"> <h2>Refund Status</h2> <hr/> <?php //Rechecking the product price and currency details if ($doDirectPaymentResponse->Ack == 'Success') { echo "<h3 id='success'>Payment Successful</h3>"; echo "<P>Amount -" . $doDirectPaymentResponse->Amount->value . " (" . $doDirectPaymentResponse->Amount->currencyID . ")</P>"; echo "<P>Transaction ID -" . $doDirectPaymentResponse->TransactionID . "</P>"; echo "<div class='back_btn'><a href='index.php' id= 'btn'><< Back </a></div>"; } else { echo "<h3 id='fail'>Payment - Failed</h3>"; echo '<p>Error msg - This transaction cannot be processed. <br>Please enter a valid credit card number and type.</p>'; echo "<div class='back_btn'><a href='index.php' id= 'btn'><< Back </a></div>"; } ?> </div> </div> </body> </html> <?php } ?>
+
+click below button to copy the code. php tutorial - team
+
+
+Copy Code
+
+Style.css
+
+Includes basic styling of HTML elements.
+
+/*---------------------------------------------- css settings for HTML div exactCenter ------------------------------------------------*/ @import url(http://fonts.googleapis.com/css?family=Raleway); #main{ width:960px; margin:50px auto; font-family:raleway; } span{ color:red; } h2{ background-color: #FEFFED; text-align:center; border-radius: 10px 10px 0 0; margin: -10px -40px; padding: 15px; } hr{ border:0; border-bottom:1px solid #ccc; margin: 10px -40px; margin-bottom: 30px; } #main_wrapper{ width: 100%; } #container{ width: 100%; float: left; border-radius: 10px; font-family:raleway; border: 2px solid #ccc; padding: 10px 40px 25px; margin-top: 22px; margin-bottom: 40px; margin-left: -42px; } input[type=text],input[type=password],select{ width: 50.5%; padding: 10px; margin-top: 8px; border: 1px solid #ccc; padding-left: 5px; font-size: 16px; font-family:raleway; } #buynow{ width: 50%; background-color:#FFBC00; color: white; border: 2px solid #FFCB00; padding: 10px; font-size:20px; cursor:pointer; border-radius: 5px; margin-bottom: 15px; } a#paynow{ /* width: 72%; */ background-color:#FFBC00; color: white; border: 2px solid #FFCB00; padding: 15px 60px; font-size:20px; cursor:pointer; border-radius: 5px; /* margin: 0 0 0 394px; */ } #profile{ padding:50px; border:1px dashed grey; font-size:20px; background-color:#DCE6F7; } a{ text-decoration:none; color: cornflowerblue; } i{ color: cornflowerblue; } #product{ width: 272px; height: 500px; border:1px solid #E7E7E5; float: left; margin-left: 34px; } #product p{ text-align: center; margin-top: 30px; } #product h3{ text-align: center; margin-top: -12px; margin-bottom: 25px; } #product a{ text-align: center; margin: 0 0 0 80px; } #td-label{ text-align: right; font-weight: bold; } #date-div{ width: 28%; /* height: 20px; */ /* border: 1px solid red; */ float: left; } #year-div{ width: 30%; /* height: 31px; */ /* border: 1px solid red; */ float: left; margin-left: -59px; } #product input[type=submit]{ text-align: center; } #return { width: 492px; height: 350px; float: left; border-radius: 10px; font-family: raleway; border: 2px solid #ccc; padding: 10px 40px 11px; } #return h3#success { text-align: center; font-size: 24px; margin-top: 50px; color: green; } #return P { text-align: center; } #return .back_btn { margin-top: 51px; text-align: center; } #btn { width: 100%; background-color: #FFBC00; color: white; border: 2px solid #FFCB00; padding: 10px 70px; font-size: 20px; cursor: pointer; border-radius: 5px; margin-bottom: 15px; margin: 0 auto; } a{ text-decoration:none; color: cornflowerblue; } img#paypal_logo { float: right; margin-right: 20px; margin-top: 1%; padding-bottom: 15px; } .success_main_heading{ margin-left: -32%; margin-bottom: 7%; } #return h3#fail{ text-align: center; font-size: 24px; margin-top: 50px; color: red; } .red{ color:red; font-weight: bold; }
+
+click below button to copy the code. php tutorial - team
+
+
+Copy Code
+
+Related Searches to PayPal Credit Card Payment in PHP
+
+paypal credit card payment gateway integration in phppaypal direct payment api php examplepaypal direct payment sample code phpcredit card payment in php demopaypal pro payment gateway integration in phpintegrate credit card payment in phpphp credit card payment scriptpaypal pro integration php codepaypal credit card payment php codepaypal direct payment sample code phppaypal direct payment api php examplecredit card payment in php demopaypal pro payment gateway integration in phppaypal pro integration php codephp credit card payment scriptintegrate credit card payment in phpphp tutorial for beginners tutorial php php website learn php online php programs php programming language php online course php mysql tutorial php example php training php source code php 7 tutorial tutorialspoint php php url script php advanced php tutorial php web development php javascript php ajax tutorial php lernen php code generator php for dummies php developer online php classes online php course php developer course php development tutorials php tutorial for beginners pdf php programming language php server script php website project phpmyadmin sql programing php php programming courses php training course php tutorial classes php tutorial for beginners pdf tutorial php class php tutorial for beginners with examples pdf php tutorial point php interview questions php pdf php basics php syntax php tutorial for beginners php tutorial pdf sphp tutorial
+
+Wikitechy Rated 5 / 5 based on 378284 reviews.
+
+￼
+
+World's No 1 Animated self learning Website with Informative tutorials explaining the code and the choices behind it all.
+
+Wikitechy
+
+About Us
+Terms of Use
+Privacy Policy
+Contact Us
+
+Workshop
+
+Webinar
+
+Join our Community
+
+Advertise
+
+Other Languages
+
+English
+Chinese
+Deutsch
+Russian
+
+© 2016 - 2024 KaaShiv InfoTech, All rights reserved. Powered by Inplant Training in chennai | Internship in chennai
+
