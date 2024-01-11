@@ -1,0 +1,452 @@
+#6
+
+
+"How to Create Dropdown Menu with Bootstrap 5 - Tutorial Republic" https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-dropdowns.php
+
+
+
+
+
+HOME HTML5 CSS3 JAVASCRIPT JQUERY BOOTSTRAP5 v4.6 PHP7 SQL REFERENCES EXAMPLES FAQ SNIPPETS
+ADVERTISEMENTS
+
+Bootstrap Dropdowns
+In this tutorial you will learn how to add dropdown menus to various Bootstrap components.
+
+Creating Dropdown Menus with Bootstrap
+The dropdown menu is typically used inside the navigation header to display a list of related links when a user mouse hover or click on the trigger element.
+
+You can use the Bootstrap dropdown plugin to add toggleable dropdown menus (i.e. open and close on click) to almost anything such as links, buttons or button groups, navbar, tabs and pills nav etc. without even writing a single line of JavaScript code.
+
+Adding Dropdowns via Data Attributes
+Bootstrap provides an easy and elegant mechanism for adding the dropdown menu to an element via data attributes. The following example will show you the minimum markup required for adding a dropdown menu to the hyperlink via data attributes.
+
+ExampleTry this code »
+<div class="dropdown">
+    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">Dropdown</a>
+    <div class="dropdown-menu">
+        <a href="#" class="dropdown-item">Action</a>
+        <a href="#" class="dropdown-item">Another action</a>
+    </div>
+</div>
+The above example demonstrates the most basic form of the Bootstrap dropdowns. Let's understand each part of the Bootstrap dropdown component one by one.
+
+Explanation of Code
+The Bootstrap dropdown has basically two components — the dropdown trigger element which can be a hyperlink or button, and the dropdown menu itself.
+
+The .dropdown class specifies a dropdown menu.
+The .dropdown-toggle class defines the trigger element, which is a hyperlink in our case, whereas the attribute data-bs-toggle="dropdown" is required on the trigger element to toggle the dropdown menu.
+The <div> element with the class .dropdown-menu is actually building the dropdown menu that typically contains the related links or actions.
+Similarly, you can add the dropdowns to the buttons and nav components. The following section will show you some common implementation of the Bootstrap dropdown.
+
+Dropdowns within a Navbar
+The following examples will show you how to add dropdowns to navbar.
+
+ExampleTry this code »
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">Brand</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Profile</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Messages</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Inbox</a>
+                        <a href="#" class="dropdown-item">Drafts</a>
+                        <a href="#" class="dropdown-item">Sent Items</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#"class="dropdown-item">Trash</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a href="#" class="dropdown-item">Reports</a>
+                        <a href="#" class="dropdown-item">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+— The output of the above example will look something like this:
+
+
+Tip: You can draw a divider line to separate the links inside a dropdown menu by adding the class .dropdown-divider on a blank <div> element.
+
+Dropdowns within Navs
+The following example will show you how to add dropdowns to pills navs.
+
+ExampleTry this code »
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <a href="#" class="nav-link active">Home</a>
+    </li>
+    <li class="nav-item">
+        <a href="#" class="nav-link">Profile</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Messages</a>
+        <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">Inbox</a>
+            <a href="#" class="dropdown-item">Drafts</a>
+            <a href="#" class="dropdown-item">Sent Items</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">Trash</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown ms-auto">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
+        <div class="dropdown-menu dropdown-menu-end">
+            <a href="#" class="dropdown-item">Reports</a>
+            <a href="#" class="dropdown-item">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">Logout</a>
+        </div>
+    </li>
+</ul>
+— The output of the above example will look something like this:
+
+
+You can simply convert the above example to a tab dropdown by replacing the class .nav-pills with the .nav-tabs, without any further change in markup.
+
+Dropdowns within Buttons
+The following examples will show you how to add dropdowns to a primary button.
+
+ExampleTry this code »
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Primary</button>
+    <div class="dropdown-menu">
+        <a href="#" class="dropdown-item">Action</a>
+        <a href="#" class="dropdown-item">Another action</a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item">Separated link</a>
+    </div>
+</div>
+— Similarly you can add dropdowns to other variants of the buttons, as shown here:
+
+
+Bootstrap Split Button Dropdowns
+The following examples will show you how to add dropdowns to split buttons.
+
+ExampleTry this code »
+<div class="btn-group">
+    <button type="button" class="btn btn-primary">Primary</button>
+    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+        <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <div class="dropdown-menu">
+        <a href="#" class="dropdown-item">Action</a>
+        <a href="#" class="dropdown-item">Another action</a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item">Separated link</a>
+    </div>
+</div>
+— Similarly you can add dropdowns to other variants of the buttons, as shown here:
+
+
+Tip: You can use the Bootstrap's button relative sizing classes like .btn-lg and .btn-sm on the .btn element to further resizing the buttons dropdowns.
+
+Dropdowns Inside Button Groups
+To create dropdown menus inside a button group just place a .btn-group along with the dropdown markup within another .btn-group, as shown in the following example:
+
+ExampleTry this code »
+<div class="btn-group">
+    <button type="button" class="btn btn-primary">Button</button>
+    <button type="button" class="btn btn-primary">Another Button</button>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Dropdown</button>
+        <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">Action</a>
+            <a href="#" class="dropdown-item">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">Separated link</a>
+        </div>
+    </div>
+</div>
+— The output of the above example will look something like this:
+
+
+Similarly, you can crate dropdown inside vertically stacked button groups, like this:
+
+ExampleTry this code »
+<div class="btn-group-vertical">
+    <button type="button" class="btn btn-primary">Button</button>
+    <button type="button" class="btn btn-primary">Another Button</button>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Dropdown</button>
+        <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">Action</a>
+            <a href="#" class="dropdown-item">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">Separated link</a>
+        </div>
+    </div>
+</div>
+Creating Dropup, Dropleft and Dropright Menus
+You can even trigger the dropdown menus above, as well as, at the left and right of the elements by adding an extra class .dropup, .dropstart and .dropend, respectively to the parent element (i.e. the .btn-group element), as shown in the following example.
+
+ExampleTry this code »
+<!-- Dropup menu -->
+<div class="btn-group dropup">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Dropup</button>
+    <div class="dropdown-menu">
+        <a href="#" class="dropdown-item">Action</a>
+        <a href="#" class="dropdown-item">Another action</a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item">Separated link</a>
+    </div>
+</div>
+
+<!-- Dropleft menu -->
+<div class="btn-group dropstart">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Dropleft</button>
+    <div class="dropdown-menu">
+        <a href="#" class="dropdown-item">Action</a>
+        <a href="#" class="dropdown-item">Another action</a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item">Separated link</a>
+    </div>
+</div>
+
+<!-- Dropright menu -->
+<div class="btn-group dropend">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Dropright</button>
+    <div class="dropdown-menu">
+        <a href="#" class="dropdown-item">Action</a>
+        <a href="#" class="dropdown-item">Another action</a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item">Separated link</a>
+    </div>
+</div>
+— The output of the above example will look something like this:
+
+
+Creating the Right Aligned Dropdown Menus
+By default, the top-left corner of the dropdown menu is positioned at the bottom-left corner of its parent element i.e. 100% from the top and along the left side. To right align the dropdown menu just add an extra class .dropdown-menu-end to the .dropdown-menu base class.
+
+ExampleTry this code »
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Right-aligned Dropdown Menu</button>
+    <div class="dropdown-menu dropdown-menu-end">
+        <a href="#" class="dropdown-item">Action</a>
+        <a href="#" class="dropdown-item">Another action</a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item">Separated link</a>
+    </div>
+</div>
+— The output of the above example will look something like this:
+
+
+Adding Headers to Dropdown Items
+You can optionally add a menu header to label a section of menu items inside a dropdown menu by adding the class .dropdown-header to the <div> element, like this:
+
+ExampleTry this code »
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Products</button>
+    <div class="dropdown-menu">
+        <div class="dropdown-header">ELECTRONICS</div>
+        <a href="#" class="dropdown-item">Mobiles</a>
+        <a href="#" class="dropdown-item">Tablets</a>
+        <a href="#" class="dropdown-item">Laptops</a>
+        <div class="dropdown-header">FASHION</div>
+        <a href="#" class="dropdown-item">Clothing</a>
+        <a href="#" class="dropdown-item">Sunglasses</a>
+    </div>
+</div>
+Disable Items within a Dropdown
+You can apply the class .disabled to the menu items in the dropdown to make them look like disabled. However, the link is still clickable, to disable this you can typically remove the anchor's href attribute either using the JavaScript or manually.
+
+ExampleTry this code »
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Reports</button>
+    <div class="dropdown-menu">
+        <a href="#" class="dropdown-item">View</a>
+        <a href="#" class="dropdown-item">Download</a>
+        <a href="#" class="dropdown-item disabled" tabindex="-1">Edit / Delete</a>
+    </div>
+</div>
+Adding Dropdowns via JavaScript
+You may also add dropdowns manually using the JavaScript — just call the dropdown() Bootstrap method with the id or class selector of the link or button element in your JavaScript code.
+
+ExamplejQuery JavaScriptTry this code »
+<script>
+$(document).ready(function(){
+    $(".dropdown-toggle").dropdown();
+});
+</script>
+Note: The data-bs-toggle="dropdown" is still required for the dropdown's trigger element regardless of whether you call the dropdown via JavaScript or data-api.
+
+Options
+There are certain options which can be passed to dropdown() Bootstrap method to customize the functionality of a dropdown. Options can be passed via data attributes or JavaScript.
+
+For setting the dropdown options via data attributes, just append the option name to data-bs-, like data-bs-display="static", and so on. Also, when passing the options via data attributes make sure to change the case type of the option name from camelCase to kebab-case. For example, instead of using data-bs-autoClose="false", use data-bs-auto-close="false".
+
+Name	Type	Default Value	Description
+boundary	string | element	'clippingParents'	Overflow constraint boundary of the dropdown menu (applies only to Popper's preventOverflow modifier). It can also accept an HTMLElement reference (via JavaScript only).
+reference	string | element | object	'toggle'	Reference element of the dropdown menu. Accepts the values of 'toggle', 'parent', an HTMLElement reference or an object providing getBoundingClientRect.
+display	string	'dynamic'	By default, Bootstrap use Popper for dynamic positioning. You can disable this with 'static'.
+offset	array | string | function	[0, 2]	Specify the offset of the dropdown relative to its target. You can pass a string in data attributes with comma separated values like: data-bs-offset="10,20".
+autoClose	boolean | string	true	
+Configure the auto close behavior of the dropdown:
+
+true - the dropdown will be closed by clicking outside or inside the dropdown menu.
+false - the dropdown will be closed by clicking the toggle button and manually calling the hide or toggle method. Also, dropdown will not be closed by pressing esc key.
+'inside' - the dropdown will be closed (only) by clicking inside the dropdown menu.
+'outside' - the dropdown will be closed (only) by clicking outside the dropdown menu.
+popperConfig	null | object | function	null	Allows you to change Bootstrap's default Popper config, see Popper's configuration.
+See the Popper.js's documentation for more information on options mentioned above.
+
+Methods
+This is the standard bootstrap's dropdown method:
+
+toggle
+This method toggles the dropdown menu of a given navbar or tabbed navigation.
+
+ExamplejQuery JavaScriptTry this code »
+<script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myDropdown").dropdown("toggle");
+    });
+});
+</script>
+show
+This method shows the dropdown menu of a given navbar or tabbed navigation.
+
+ExamplejQuery JavaScriptTry this code »
+<script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myDropdown").dropdown("show");
+    });
+});
+</script>
+hide
+This method hides the dropdown menu of a given navbar or tabbed navigation.
+
+ExamplejQuery JavaScriptTry this code »
+<script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myDropdown").dropdown("hide");
+    });
+});
+</script>
+update
+This method updates the position of an element's dropdown.
+
+ExamplejQuery JavaScriptTry this code »
+<script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myDropdown").dropdown("update");
+    });
+});
+</script>
+dispose
+This method destroys an element's dropdown (i.e. removes stored data on the DOM element).
+
+ExamplejQuery JavaScriptTry this code »
+<script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myDropdown").dropdown("dispose");
+    });
+});
+</script>
+getInstance
+This is a static method which allows you to get the dropdown instance associated with a DOM element.
+
+ExamplejQuery JavaScriptTry this code »
+<script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        var myDropdown = bootstrap.Dropdown.getInstance($("#myDropdown")[0]);
+        console.log(myDropdown);
+        // {_element: button#myDropdown.btn.btn-primary.dropdown-toggle, _popper: {…}, _config: {…}, _menu: div.dropdown-menu, _inNavbar: false}
+    });
+});
+</script>
+getOrCreateInstance
+This is a static method which allows you to get the dropdown instance associated with a DOM element, or create a new one in case if the dropdown wasn't initialized.
+
+ExamplejQuery JavaScriptTry this code »
+<script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        var myDropdown = bootstrap.Dropdown.getOrCreateInstance($("#myDropdown")[0]);
+        console.log(myDropdown);
+        // {_element: button#myDropdown.btn.btn-primary.dropdown-toggle, _popper: null, _config: {…}, _menu: div.dropdown-menu, _inNavbar: false}
+    });
+});
+</script>
+Events
+These are the standard Bootstrap events to enhance the dropdown functionality.
+
+All dropdown events are fired at the toggling element and then bubbled up. So you can also add event listeners on the .dropdown-menu's parent element. Also, you can use the event.relatedTarget to target the toggling anchor element.
+
+Event	Description
+show.bs.dropdown	This event fires immediately when the show instance method is called.
+shown.bs.dropdown	This event is fired when the dropdown has been made visible to the user and CSS transitions have completed.
+hide.bs.dropdown	This event is fired immediately when the hide instance method has been called.
+hidden.bs.dropdown	This event is fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
+The following example displays the text content of dropdown link when the users click on it.
+
+ExamplejQuery JavaScriptTry this code »
+<script>
+$(document).ready(function(){
+    $(".dropdown").on("show.bs.dropdown", function(e){
+        var linkText = $(e.relatedTarget).text(); // Get the link text
+        alert("Click on OK button to view the dropdown menu for - " + linkText);
+    });
+});
+</script>
+PREVIOUS PAGENEXT PAGE
+ADVERTISEMENTS
+
+ADVERTISEMENTS 
+Is this website helpful to you? Please give us a like, or share your feedback to help us improve. Connect with us on Facebook and Twitter for the latest updates.
+
+ABOUT US
+Our Story
+Terms of Use
+Privacy Policy
+CONTACT
+Contact Us
+Report Error
+Advertise
+INTERACTIVE TOOLS
+Bootstrap Icon Search Utility
+HTML Formatter
+Title & Meta Length Calculator
+HTML Color Picker
+Bootstrap Button Generator
+SQL Playground
+Font Awesome Icon Finder
+HTML Editor
+
+
+
+Copyright © 2024 Tutorial Republic. All Rights Reserved.
+Share This:   
+
+Orihinal na teksto
+I-rate ang pagsasaling ito
+Gagamitin ang iyong feedback para makatulong na pahusayin ang Google Translate
+
+
+
