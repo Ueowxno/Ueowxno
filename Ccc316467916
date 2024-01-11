@@ -1,0 +1,91 @@
+#23
+
+
+"dropdown-menu-right - Bootstrap CSS class" https://bootstrapshuffle.com/classes/dropdowns/dropdown-menu-right
+
+
+
+
+
+ is now part of Shuffle™. The new editor includes templates for Bootstrap, Bulma, Material-UI, and Tailwind CSS.
+Switch to Shuffle →
+
+
+← all Bootstrap classes list
+Bootstrap class: .dropdown-menu-right
+<div class="btn-group">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    This dropdown's menu is right-aligned
+  </button>
+  <div class="dropdown-menu dropdown-menu-right">
+    <button class="dropdown-item" type="button">Action</button>
+    <button class="dropdown-item" type="button">Another action</button>
+    <button class="dropdown-item" type="button">Something else here</button>
+  </div>
+</div>Copy code
+Preview
+Check .dropdown-menu-right in a real project
+Click one of the examples listed below to open the Shuffle Visual Editor with the UI library that uses the selected component.
+
+Open in Visual Editor →
+Tips 💡
+You don't need to remember all CSS classes. Just use the Bootstrap Editor instead.
+
+Sass source
+/* _dropdown.scss:36 */
+.dropdown-menu-right {
+  right: 0;
+  left: auto;
+}Copy code
+Uses variables
+/* _dropdown.scss:36 */
+Copy code
+More in Bootstrap Dropdowns
+dropdown
+dropdown (split)
+dropup
+dropleft
+dropright
+dropdown-divider
+dropdown-item-text
+dropdown-header
+dropup (split)
+dropdown-item disabled
+dropdown-item
+dropdown-menu
+dropdown-menu-dark
+dropdown-menu-end
+dropdown-menu-start
+dropdown-menu-lg-end
+dropdown-menu-lg-start
+dropdown-menu-md-end
+dropdown-menu-md-start
+dropdown-menu-sm-end
+dropdown-menu-sm-start
+dropdown-menu-xl-end
+dropdown-menu-xl-start
+dropdown-toggle
+dropdown-toggle-split
+Bootstrap 4 & 5
+Bootstrap Editor
+Bootstrap Components
+Bootstrap Templates
+
+Terms of use 
+Bootstrap CSS
+ EN 
+Components
+Templates
+Support (EN)
+
+© 2024 Shuffle
+
+Switch to the Bootstrap Editor by Shuffle 
+
+
+Orihinal na teksto
+I-rate ang pagsasaling ito
+Gagamitin ang iyong feedback para makatulong na pahusayin ang Google Translate
+
+
+
