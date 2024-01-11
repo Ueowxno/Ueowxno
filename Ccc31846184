@@ -1,0 +1,748 @@
+#1
+
+
+"drop down menu - Display data into dropdown list from database using php - Stack Overflow" https://stackoverflow.com/questions/28670045/display-data-into-dropdown-list-from-database-using-php
+
+
+
+
+
+Stack Overflow
+Products
+Display data into dropdown list from database using php
+Asked 8 years, 10 months ago
+Modified 6 years, 9 months ago
+Viewed 7k times
+ Part of PHP Collective
+0
+
+Here i am trying to fetch data from database and display it into dropdown list using PHP. Though there is data available into table it will not display it into dropdown list.what is the problem behind that and what is the solution for that???
+
+    <!DOCTYPE html>
+
+<html>
+    <?php
+        include 'header.php';
+       include 'footer.php';
+        include './config.php';
+    ?>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+       <div id="page-wrapper">
+           <div class="row">
+               <div class="col-lg-12">
+                   <h1 class="page-header">Add Product</h1>
+              </div>
+              <!-- /.col-lg-12 -->
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Product
+                    </div>
+                    <div class="panel-body">
+                        <div class="dataTable_wrapper">
+                            <form action="AddProduct.php" method="POST" role="form">
+                                    <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Project Name</label>
+                                        <?php 
+                                            $sqll="SELECT * FROM project_master";
+                                            echo "<select class='form-control' name='project'>";
+                                            echo "<option value=''>Select One</option>";  
+                                            foreach ($conn->query($sqll) as $row){
+                                            echo "<option value=$row[Project_id]>$row[Project_title]</option>";  
+                                            }
+                                            echo "</select>";
+
+                                        ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Product Name</label>
+                                        <input class="form-control" name="Product_name" type="text" id="Product_name" required="required" title="Enter Product Name">
+
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="submit" data-toggle="modal" data-target="#myModal">Submit Query</button>
+                                    <button type="reset" class="btn btn-primary">Reset</button>
+                                    </div>
+
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Particular Circle Will be included for selected Project</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you want to proceed??
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" id="submit">Save changes</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                        </div>
+                    </div>
+
+                    </div>   
+                </div> 
+
+
+</body>
+Page sources:
+
+<head>
+
+    <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Test Management Tool</title>
+
+    <!-- Bootstrap Core CSS -->
+
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top"  role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="DeshbordAdmin.php"><i class="fa fa-home"></i>Administrator</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="../../logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>  
+        </nav>
+    </div>
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js">    </script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../../dist/js/sb-admin-2.js"></script>
+
+    <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+    <script>
+    // tooltip demo
+    $('.tooltip-demo').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    })
+
+    // popover demo
+    $("[data-toggle=popover]")
+        .popover()
+    </script>
+    </body>
+</html><!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Test Management Tool</title>
+
+<!-- Bootstrap Core CSS -->
+
+<link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- MetisMenu CSS -->
+<link href="../../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                        </div>
+                        <!-- /input-group -->
+                    </li>
+                    <li>
+                        <a href="DeshbordAdmin.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-users"></i> User<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="AddUser.php">Add User</a>
+                            </li>
+                            <li>
+                                <a href="morris.html">Delete User</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-cubes"></i> Project<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="AddProject.php">Add Project</a>
+                            </li>
+                            <li>
+                                <a href="morris.html">View Project</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-book"></i> Product<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="AddProduct.php">Add Product</a>
+                            </li>
+                            <li>
+                                <a href="morris.html">Assign Product</a>
+                            </li>
+                            <li>
+                                <a href="morris.html">View Product</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i>Test Suites<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Add Test Suite</a>
+                            </li>
+                            <li>
+                                <a href="#">Delete Test Suite</a>
+                            </li>
+                            <li>
+                                <a href="#">Update Test Suite <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Add Test case</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Delete Test case</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-third-level -->
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Test Case<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="panels-wells.html">Add Test Case</a>
+                            </li>
+                            <li>
+                                <a href="buttons.html">Update Test Case</a>
+                            </li>
+                            <li>
+                                <a href="notifications.html">View Test Case</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-circle-o-notch"></i> Circe</a>
+                    </li>
+                    <li>
+                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="blank.html">Blank Page</a>
+                            </li>
+                            <li>
+                                <a href="login.html">Login Page</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+</div>
+<!-- /#wrapper -->
+</body>
+</html>
+ <head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+   <div id="page-wrapper">
+       <div class="row">
+           <div class="col-lg-12">
+               <h1 class="page-header">Add Product</h1>
+          </div>
+          <!-- /.col-lg-12 -->
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Product
+                </div>
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <form action="AddProduct.php" method="POST" role="form">
+                                <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Project Name</label>
+                                    <select class='form-control' name='project'><option value=''>Select One</option><option value=''></option>    <option value=''></option><option value=''></option><option value=''></option><option value=''></option></select>                                    </div>
+                                <div class="form-group">
+                                    <label>Product Name</label>
+                                    <input class="form-control" name="Product_name" type="text" id="Product_name" required="required" title="Enter Product Name">
+
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="submit" data-toggle="modal" data-target="#myModal">Submit Query</button>
+                                <button type="reset" class="btn btn-primary">Reset</button>
+                                </div>
+
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Particular Circle Will be included for selected Project</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Do you want to proceed??
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" id="submit">Save changes</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                    </div>
+                </div>
+
+                </div>   
+            </div> 
+
+
+</body>
+phpdrop-down-menu
+Share
+Improve this question
+Follow
+edited Feb 23, 2015 at 11:17
+asked Feb 23, 2015 at 9:02
+
+Trilok Patel
+2122 silver badges1313 bronze badges
+Whats the result you got with the above code? – 
+SO-user
+ Feb 23, 2015 at 9:04
+I am not getting anything means it will not show me the data into dropdown list.. – 
+Trilok Patel
+ Feb 23, 2015 at 9:09
+In your DB abstraction layer, does $conn->query($sqll); actually return the result set? If this is using PDO, does $conn->errorInfo() return anything? – 
+Phylogenesis
+ Feb 23, 2015 at 9:09 
+yes it will return result set.and $conn->errorInfo() is not return anything – 
+Trilok Patel
+ Feb 23, 2015 at 9:21 
+Can you view page source in your browser and post the resulting HTML that is appearing? – 
+Peter Bowers
+ Feb 23, 2015 at 9:39
+Show 5 more comments
+
+Report this ad
+3 Answers
+Sorted by:
+
+Highest score (default)
+1
+
+Try this code
+
+<html>
+    <?php
+        include 'header.php';
+       include 'footer.php';
+        include './config.php';
+    ?>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+       <div id="page-wrapper">
+           <div class="row">
+               <div class="col-lg-12">
+                   <h1 class="page-header">Add Product</h1>
+              </div>
+              <!-- /.col-lg-12 -->
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Product
+                    </div>
+                    <div class="panel-body">
+                        <div class="dataTable_wrapper">
+                            <form action="AddProduct.php" method="POST" role="form">
+                                    <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Project Name</label>
+                                        <?php 
+                                            $sqll="SELECT * FROM project_master";
+                                            echo "<select class='form-control' name='project'>";
+                                            echo "<option value=''>Select One</option>";  
+                                            foreach ($conn->query($sqll) as $row){
+                                            echo "<option value=".$row['Project_id'].">".$row['Project_title']."</option>";  
+                                            }
+                                            echo "</select>";
+
+                                        ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Product Name</label>
+                                        <input class="form-control" name="Product_name" type="text" id="Product_name" required="required" title="Enter Product Name">
+
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="submit" data-toggle="modal" data-target="#myModal">Submit Query</button>
+                                    <button type="reset" class="btn btn-primary">Reset</button>
+                                    </div>
+
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Particular Circle Will be included for selected Project</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you want to proceed??
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" id="submit">Save changes</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                        </div>
+                    </div>
+
+                    </div>   
+                </div> 
+
+
+</body>
+Share
+Improve this answer
+Follow
+answered Feb 23, 2015 at 9:29
+
+Karthikeyani Srijish
+48033 silver badges77 bronze badges
+Please check the source code. and search for name='project'. What it returns in the select box section? Also check the field names. Is this the field names Project_id and Project_title? – 
+Karthikeyani Srijish
+ Feb 23, 2015 at 9:54 
+Field name is correct and these both(old & new ) code are run in another machine succesfully means it will show the name into dropdown list but not in my machine????? – 
+Trilok Patel
+ Feb 23, 2015 at 9:56
+echo "<option value='".$row['Project_id']."'>".$row['Project_title']."</option>"; Replace this code and check. If you are still facing the same issue, then let me know, is there any quote in your title? like John's – 
+Karthikeyani Srijish
+ Feb 23, 2015 at 10:10 
+No this is your original code. Please share the page source code. Run the page and get from browser and send. – 
+Karthikeyani Srijish
+ Feb 23, 2015 at 10:45
+No Trilok, You need to run the web page in browser and right click on the browser. Now you will get options. In that, click "View page source". Now you will get new tab with page source. Copy that and share. Currently you have shared the original code not page source. – 
+Karthikeyani Srijish
+ Feb 23, 2015 at 11:01
+Show 8 more comments
+0
+
+I think one of the problem is that you are missing single qoutes in your echo $row[project_id] which should be $row['project_id']. what happens if you change your code to the following?
+
+<?php 
+    $sqll="SELECT * FROM project_master";
+    echo "<select class='form-control' name='project'>";
+    echo "<option value=''>Select One</option>"; 
+    $results =  $conn->query($sqll);
+    foreach ($results as $row) {
+        echo "<option value=$row[Project_id]>$row[Project_title]</option>";  
+    }
+    echo "</select>";
+?>
+Share
+Improve this answer
+Follow
+edited Apr 1, 2017 at 10:39
+answered Feb 23, 2015 at 9:59
+
+Junius L
+16k66 gold badges5353 silver badges9898 bronze badges
+@TrilokPatel is this PDO ? – 
+Junius L
+ Feb 23, 2015 at 10:47
+the code is working well on my site, maybe there are no entries in your database. – 
+Junius L
+ Feb 23, 2015 at 10:57
+thats the main problem. there is entry available in my db though it will not work. – 
+Trilok Patel
+ Feb 23, 2015 at 11:02
+Add a comment
+0
+
+As suggested by @Karthikeyani, I have
+Replace this code
+
+$sqll="SELECT * FROM project_master"; $rows = $conn->query($sqll);
+ echo "<select class='form-control' name='project'>";
+echo "<option value=''>Select One</option>"; 
+while($rows->fetch_assoc() as $row){
+    echo "<option value=".$row['Project_id'].">".$row['Project_title']."</option>"; 
+} 
+echo "</select>"; ?>
+Share
+Improve this answer
+Follow
+answered Feb 23, 2015 at 13:00
+
+Trilok Patel
+2122 silver badges1313 bronze badges
+Add a comment
+Your Answer
+
+Sign up or log in
+Post as a guest
+Name
+
+Email
+Required, but never shown
+
+
+By clicking “Post Your Answer”, you agree to our terms of service and acknowledge that you have read and understand our privacy policy and code of conduct.
+
+Not the answer you're looking for? Browse other questions tagged phpdrop-down-menu or ask your own question.
+PHP
+Collective
+ This question is in a collective: a subcommunity defined by tags with relevant content and experts.
+The Overflow Blog
+How long till we run out of fresh data to train the latest AI?
+Featured on Meta
+Update to our Advertising Guidelines
+Sites can now request to enable a banner to warn about their policy on...
+Temporary policy: Generative AI (e.g., ChatGPT) is banned
+Related
+1
+Populate a PHP Dropdown List from MySQL Database
+2
+PHP dropdown with items from database
+2
+Display data from SQL database in a drop down menu
+1
+display from database to dropdown list
+0
+PHP Drop Down Data from Database
+0
+Populating dropdown box from database php
+0
+Dropdown menu with values from DB
+2
+Display values from table from a database into a dropdown list
+0
+Fetching data to HTML dropdown list to from database
+2
+Fetching data from database to drop down list
+Hot Network Questions
+How can an International Court of Justice order to stop the war in Gaza be enforced?
+Why does the Linux SCSI subsystem drive hardware not obviously related to SCSI?
+What would space equivalent of trucks look like?
+Can airlines leave you stranded?
+Massless limit of the Dirac theory
+When did "neighbourhood of a point" first appear in the history of Taylor series?
+Why do the pieces of breaking objects scatter?
+Book about a space war with lizards and mind-controlling space turtles
+How to efficiently find the fourth moment of a Poisson distribution?
+Literary background of being poisoned via the ear?
+What is this wrong inscription at the Doors of Durin, the gate of moria?
+Do you know of any such fonts?
+Can I dispute a credit card charge for a hacked Vanilla Visa Gift Card?
+When is the Query "Done"?
+Are there many high level political appointees who have served two countries in quick succession?
+Passenger window insert pops out mid-flight
+How can I write the equation 9 x == 5 y + 8 z + 27 in the form 9x - 5y - 8z - 27=0?
+Microwave sparks
+What are the tradeoffs between NPN vs PNP power transistors?
+Proportion of Lunar Fraction in a Year
+I'm looking for a movie about alternative universe
+Understanding a Class D amplifier design
+What's using all the space on a seemingly empty partition?
+How to avoid writing a 'good but not great' reference letter
+ Question feed
+
+STACK OVERFLOW
+Questions
+Help
+PRODUCTS
+Teams
+Advertising
+Collectives
+Talent
+COMPANY
+About
+Press
+Work Here
+Legal
+Privacy Policy
+Terms of Service
+Contact Us
+Cookie Settings
+Cookie Policy
+STACK EXCHANGE NETWORK
+Technology
+Culture & recreation
+Life & arts
+Science
+Professional
+Business
+API
+Data
+Blog
+Facebook
+Twitter
+LinkedIn
+Instagram
+Site design / logo © 2024 Stack Exchange Inc; user contributions licensed under CC BY-SA. rev 2024.1.3.2953
+
+Your privacy
+
+By clicking “Accept all cookies”, you agree Stack Exchange can store cookies on your device and disclose information in accordance with our Cookie Policy.
+
+
+Orihinal na teksto
+I-rate ang pagsasaling ito
+Gagamitin ang iyong feedback para makatulong na pahusayin ang Google Translate
+
+
