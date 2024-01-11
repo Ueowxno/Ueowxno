@@ -1,0 +1,426 @@
+#10
+
+
+"javascript - Bootstrap dropdown menu hidden behind other elements - Stack Overflow" https://stackoverflow.com/questions/32526201/bootstrap-dropdown-menu-hidden-behind-other-elements
+
+
+
+
+
+Stack Overflow
+Products
+Bootstrap dropdown menu hidden behind other elements
+Asked 8 years, 4 months ago
+Modified 1 month ago
+Viewed 35k times
+13
+
+I have a problem similar to this . But the solutions there does not work for my issue. And that discussion has been closed for further suggestions. Unfortunately I can't show my code exactly as it is on jsfiddle. However the issue is something like this. When trying to expand the dropdown inside first panel section, the dropdown hidden behind other elements. I've spent hours trying different suggestions concerning "stacking context", "position", and "z-index". I would really appreciate if anyone could point me to any resources that could help.
+
+<div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span data-bind="label">Select One</span>&nbsp;<span class="caret"></span>
+
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Item 1</a>
+                        </li>
+                        <li><a href="#">Another item</a>
+                        </li>
+                        <li><a href="#">This is a longer item that will not fit properly</a>
+                        </li>
+                    </ul>
+                </div>
+javascripthtmlcsstwitter-bootstrap
+Share
+Follow
+edited May 23, 2017 at 11:54
+
+CommunityBot
+111 silver badge
+asked Sep 11, 2015 at 14:45
+
+burktelefon
+1,00822 gold badges99 silver badges2727 bronze badges
+See my answer at stackoverflow.com/questions/16149701/… – 
+tiago
+ Mar 17, 2016 at 14:29
+Add a comment
+
+Report this ad
+6 Answers
+Sorted by:
+
+Highest score (default)
+23
+
+You have two options. You can make the container's overflow expand to fit the content by setting 'overflow: auto' to the parent's css.
+
+FIDDLE DEMO
+
+.panel-body { /* parent container of the menu */
+    overflow:auto;
+}
+Or you could do something functionally with JavaScript to handle the menu placement. This option is a little bit 'hacky' and would require further improvements. You would need to improve it to handle multiple menus open at once on the same page, and you would need to improve how it selects the menu. You might also want to add scroll support to move the menu with its target element unless that's not an issue. Here's the fiddle:
+
+FIDDLE DEMO
+
+(function() {
+  // hold onto the drop down menu                                             
+  var dropdownMenu;
+
+  // and when you show it, move it to the body                                     
+  $(window).on('show.bs.dropdown', function(e) {
+
+    // grab the menu        
+    dropdownMenu = $(e.target).find('.dropdown-menu');
+
+    // detach it and append it to the body
+    $('body').append(dropdownMenu.detach());   
+
+    // grab the new offset position
+    var eOffset = $(e.target).offset();
+
+    // make sure to place it where it would normally go (this could be improved)
+    dropdownMenu.css({
+        'display': 'block',
+        'top': eOffset.top + $(e.target).outerHeight(),
+        'left': eOffset.left
+    });                                                
+  });
+
+  // and when you hide it, reattach the drop down, and hide it normally                                                   
+  $(window).on('hide.bs.dropdown', function(e) {        
+    $(e.target).append(dropdownMenu.detach());        
+    dropdownMenu.hide();                              
+  });                                                   
+})(); 
+There is probably a better way to do this, but the concept is to move the menu from the confines of the parent element to the body. When you're relying on the html data-attributes to setup the menu, you'll have trouble doing this, but that is where the second solution I reference becomes useful.
+
+Sadly I would have suggested looking into the 'Via Javascript' options that bootstrap provides, but apparently they don't have the option to set the target append element. It would have been nice to have an option to append the menu on to whichever element you want like most of their other items: Bootstrap Docs
+
+EDIT
+
+As @Andrea Pizzirani mentioned, you could try removing the css for the menu absolute positioning, but I wouldn't recommend it! That will mess up all other instances of the menu unless you add other css to restrict scope of the change. Also, if you want the menu positioned under the button, you'll have to redo CSS that bootstrap already had in place.
+
+Still, if it works, and you're not worried about messing up all other menus, it may be the solution you were looking for. Heres a fiddle demonstrating the solution:
+
+FIDDLE DEMO
+
+dropdown-menu {}
+EDIT I finally found where I originally found this solution. Gotta give credit where credit is due!
+
+Share
+Follow
+edited May 23, 2017 at 12:25
+
+CommunityBot
+111 silver badge
+answered Sep 11, 2015 at 15:40
+
+Jonathan
+1,1361010 silver badges1919 bronze badges
+1
+I can't see the entire dropdown in your first fiddle (Chrome v. 45), can you? However the second solution with JS is working. Thank you very much for the time and effort. – 
+burktelefon
+ Sep 14, 2015 at 9:29
+Yeah, the first solution only allows the parent container to expand so that you can scroll to see the rest of the dropdown. But I'm glad the JS version works for you! – 
+Jonathan
+ Sep 14, 2015 at 21:21
+2
+I may have spoken too soon - this is not a panacea by any means. Since it removes the menu from its normal document flow, any kind of jQuery plugin that may depend on that structure will be broken. – 
+Bruce Pierson
+ Jun 1, 2018 at 21:14
+1
+@BrucePierson if you come up with a better solution, let me know! I only posted an answer to this because the problem was interesting. Flow was the problem from the beginning, so noting that there are side effects manipulating the flow is a very apt observation. Thank you for noting that it will very likely impact other jQuery plugins depending on the dropdown menu's flow. – 
+Jonathan
+ Jun 11, 2018 at 16:36
+1
+@Jonathan nothing yet - Bootstrap has it marked as a will not fix because it's really a popper.js problem. I've looked at some of the issues over there but can't find an answer for a popup menu in a table cell. By the way, it only affects tables that are in a div with the table-responsive class. If you remove this, it works, but of course then the tables overflow the viewport. – 
+Bruce Pierson
+ Jun 12, 2018 at 17:47 
+Show 2 more comments
+1
+
+Try to remove position: absolute; from:
+
+dropdown-menu {}
+and place the menu under the button by css.
+
+Share
+Follow
+edited Sep 11, 2015 at 16:22
+
+AndrewL64
+15.9k88 gold badges4848 silver badges8181 bronze badges
+answered Sep 11, 2015 at 15:45
+
+Andrea Pizzirani
+5377 bronze badges
+Add a comment
+0
+
+Modification of Jonathan's answer above, which was a huge help, but I modified it to place the menu back at it's source row, which allows custom jQuery to function properly (because the menu still exists at its initial parent element hierarchy. My use case was a jQuery DataTable with frozen columns. We had a bootstrap 4 "Action" dropdown-menu embedded in a cell of that table. The menu was appearing behind the hidden columns. This function allowed it be copied and pasted above the fixed columns where users can actually interact with it.
+
+function BringActionMenuToForeground() {
+    var dropdownMenu;
+
+    /// When you show the menu, remove it from its current row and place it right back. This puts it on top of the DOM.
+    $(window).on('show.bs.dropdown', function (e) {
+        /// grab the menu
+        dropdownMenu = $(e.target).find('.dropdown-menu');
+        /// get the row where the menu appers.
+        var menuRow = $(dropdownMenu).closest("tr");
+        /// detach it and append it right back to the row from which it was taken.
+        $(menuRow).append(dropdownMenu.detach());
+
+        /// grab the new offset position
+        var eOffset = $(e.target).offset();
+
+        /// make sure to place it where it would normally go (this could be improved)
+        dropdownMenu.css({
+            'display': 'block',
+            'top': eOffset.top + $(e.target).outerHeight(),
+            'left': eOffset.left
+        });
+    });
+
+    /// and when you hide it, reattach the drop down, and hide it normally                                                   
+    $(window).on('hide.bs.dropdown', function (e) {
+        $(e.target).append(dropdownMenu.detach());
+        dropdownMenu.hide();
+    });
+}
+Share
+Follow
+answered Nov 19, 2021 at 23:09
+
+ScottLenart
+1,16011 gold badge1212 silver badges1515 bronze badges
+Add a comment
+0
+
+Add an additional class on your HTML and use the below codepen reference code.
+
+check here: https://codepen.io/qpqinc/pen/yLyPVMJ
+
+
+<div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Dropdown
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><a href="#">Item 1</a></li>
+              <li><a href="#">Item 2</a></li>
+              <li><a href="#">Item 3</a></li>
+              <li><a href="#">Item 4</a></li>
+              <li><a href="#">Item 5</a></li>
+              <li><a href="#">Item 6</a></li>
+              <li><a href="#">Item 7</a></li>
+              <li><a href="#">Item 8</a></li>
+              <li><a href="#">Item 9</a></li>
+              <li><a href="#">Item 10</a></li>
+            </ul>
+          </div>
+
+
+$(function() {
+  //add BT DD show event
+  $(".dropdown").on("show.bs.dropdown", function() {
+    var $btnDropDown = $(this).find(".dropdown-toggle");
+    var $listHolder = $(this).find(".dropdown-menu");
+    //reset position property for DD container
+    $(this).css("position", "static");
+    $listHolder.css({
+      "top": ($btnDropDown.offset().top + $btnDropDown.outerHeight(true)) + "px",
+      "left": $btnDropDown.offset().left + "px"
+    });
+    $listHolder.data("open", true);
+  });
+  //add BT DD hide event
+  $(".dropdown").on("hidden.bs.dropdown", function() {
+    var $listHolder = $(this).find(".dropdown-menu");
+    $listHolder.data("open", false);
+  });
+  //add on scroll for table holder
+  $(".ak-holder").scroll(function() {
+    var $ddHolder = $(this).find(".dropdown")
+    var $btnDropDown = $(this).find(".dropdown-toggle");
+    var $listHolder = $(this).find(".dropdown-menu");
+    if ($listHolder.data("open")) {
+      $listHolder.css({
+        "top": ($btnDropDown.offset().top + $btnDropDown.outerHeight(true)) + "px",
+        "left": $btnDropDown.offset().left + "px"
+      });
+      $ddHolder.toggleClass("open", ($btnDropDown.offset().left > $(this).offset().left))
+    }
+  })
+});
+Share
+Follow
+edited Jan 6, 2023 at 10:14
+answered Dec 28, 2022 at 5:35
+
+Prakash Malviya
+3866 bronze badges
+While this link may answer the question, it is better to include the essential parts of the answer here and provide the link for reference. Link-only answers can become invalid if the linked page changes. - From Review – 
+Aaron Meese
+ Dec 29, 2022 at 15:10
+1
+@AaronMeese thanks for the comment, I just copied core part of logic that is we just have to top of button need to add div with class <div class="dropdown"> then related jquery. that's it – 
+Prakash Malviya
+ Jan 6, 2023 at 10:16
+Add a comment
+0
+
+Maybe this will help someone, I spent hours on this:
+
+
+
+And for me this issue was from this style on a parent div:
+
+backdrop-filter: blur(50px);
+
+Just had to remove it to get the dropdown-menu not being hidden over some elements of the page!
+
+
+
+Share
+Follow
+answered Nov 15, 2023 at 10:16
+
+London Smith
+1,65422 gold badges1818 silver badges4040 bronze badges
+Add a comment
+-1
+
+You need to add only:
+
+.panel.panel-default{
+      overflow: inherit !important;
+    }
+JSFIDDLE DEMO
+
+Share
+Follow
+answered May 31, 2019 at 12:18
+
+Tell Me How
+6721212 silver badges1616 bronze badges
+Add a comment
+Your Answer
+
+Sign up or log in
+Post as a guest
+Name
+
+Email
+Required, but never shown
+
+
+By clicking “Post Your Answer”, you agree to our terms of service and acknowledge that you have read and understand our privacy policy and code of conduct.
+
+Not the answer you're looking for? Browse other questions tagged javascripthtmlcsstwitter-bootstrap or ask your own question.
+The Overflow Blog
+How long till we run out of fresh data to train the latest AI?
+Featured on Meta
+Update to our Advertising Guidelines
+Sites can now request to enable a banner to warn about their policy on...
+Temporary policy: Generative AI (e.g., ChatGPT) is banned
+Linked
+64
+z-index issue with twitter bootstrap dropdown menu
+62
+Bootstrap dropdowns menus appearing behind other elements - IE7
+19
+Bootstrap drop down cutting off
+Related
+3
+CSS: Dropdown menu gets hidden behind the content
+1
+bootstrap dropdown menu going behind content on small screens
+4
+Bootstrap dropdowns menus appearing behind other DIV's
+0
+Bootstrap issue, dropdown menu is hidden behind another element
+4
+drop-down menu hiding behind the panel
+0
+Bootstrap Dropdown Partially Blocked Behind Page Content
+9
+Bootstrap 4 dropdown menu appears behind other elements
+1
+Dropdown menu not positioned correctly
+3
+dropdown is hidden behind image
+0
+BootStrap dropdown menu hides behind the screen
+Hot Network Questions
+When are Superiority Dice Added?
+What would space equivalent of trucks look like?
+Where can I get layover insurance?
+Conventional weapon design to counter specific magical weaponry
+What is this wrong inscription at the Doors of Durin, the gate of moria?
+Orange on Turquoise
+Episode of a TV show in which a boy brings pictures to life
+What's the translation of a login wall in French?
+Does one have to honor parents who’re in Nidui or Cherem
+How can an International Court of Justice order to stop the war in Gaza be enforced?
+How do you monitor free disk space?
+Why is indentation on Github different from indentation in my Neovim?
+Why does sunlight have low entropy?
+Confusion on when a filter is considered band-pass
+Is there a name for this kind of loose pseudo alliteration? for example, gold -> glitter, crown -> king
+Are there many high level political appointees who have served two countries in quick succession?
+Boolean Geo Nodes Animation Mesh Glitches
+How to prevent photoresistor sensor from draining battery
+Why did current increase when voltage decreased?
+Looking for a short story in which the narrator describes how he has placed the pages of the story specifically for "you"
+What are the tradeoffs between NPN vs PNP power transistors?
+Can the product of two disjoint subsets of numbers like 7, 77, 777, ... be equal?
+In what cases are counter-terrorist operations justified?
+Is it reasonable to argue that my party should start with inspiration, since I have the Musician feat?
+ Question feed
+
+STACK OVERFLOW
+Questions
+Help
+PRODUCTS
+Teams
+Advertising
+Collectives
+Talent
+COMPANY
+About
+Press
+Work Here
+Legal
+Privacy Policy
+Terms of Service
+Contact Us
+Cookie Settings
+Cookie Policy
+STACK EXCHANGE NETWORK
+Technology
+Culture & recreation
+Life & arts
+Science
+Professional
+Business
+API
+Data
+Blog
+Facebook
+Twitter
+LinkedIn
+Instagram
+Site design / logo © 2024 Stack Exchange Inc; user contributions licensed under CC BY-SA. rev 2024.1.3.2953
+
+
+Orihinal na teksto
+I-rate ang pagsasaling ito
+Gagamitin ang iyong feedback para makatulong na pahusayin ang Google Translate
+
+
+
+
