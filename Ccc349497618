@@ -1,0 +1,933 @@
+#17
+
+
+"Dropdown | Components | BootstrapVue" https://bootstrap-vue.org/docs/components/dropdown
+
+
+
+
+
+Docs
+Vue.js 3
+Components
+Directives
+Icons
+Reference
+Themes
+Play
+
+Home
+Docs
+Components
+Dropdown
+Dropdown
+Dropdowns are toggleable, contextual overlays for displaying lists of links and actions in a dropdown menu format.
+
+Get 10 free Adobe Stock photos. Start downloading amazing royalty-free stock photos today.
+ads via Carbon
+<b-dropdown> (or known by its shorter alias of <b-dd>) components are toggleable, contextual overlays for displaying lists of links and more. They're toggled by clicking (or pressing space or enter when focused), not by hovering; this is an intentional design decision.
+
+<div>
+  <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
+    <b-dropdown-item>First Action</b-dropdown-item>
+    <b-dropdown-item>Second Action</b-dropdown-item>
+    <b-dropdown-item>Third Action</b-dropdown-item>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-item active>Active action</b-dropdown-item>
+    <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+  </b-dropdown>
+</div>
+Button content
+You can customize the text of the dropdown button by using either the text prop (shown in previous examples), or use the button-content slot instead of the text prop. The button-content slot allows you to use basic HTML and icons in the button content.
+
+If both the prop text and slot button-content are present, the slot button-content will take precedence.
+
+ 
+<div>
+  <b-dropdown text="Button text via Prop">
+    <b-dropdown-item href="#">An item</b-dropdown-item>
+    <b-dropdown-item href="#">Another item</b-dropdown-item>
+  </b-dropdown>
+
+  <b-dropdown>
+    <template #button-content>
+      Custom <strong>Content</strong> with <em>HTML</em> via Slot
+    </template>
+    <b-dropdown-item href="#">An item</b-dropdown-item>
+    <b-dropdown-item href="#">Another item</b-dropdown-item>
+  </b-dropdown>
+</div>
+Positioning
+Dropdown supports various positioning such as left and right aligned, dropdown and dropup, and supports auto-flipping (dropdown to dropup, and vice-versa) when the menu would overflow off of the visible screen area.
+
+Menu alignment
+The dropdown menu can either be left aligned (default) or right aligned with respect to the button above it. To have the dropdown aligned on the right, set the right prop.
+
+ 
+<div>
+  <b-dropdown id="dropdown-left" text="Left align" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+
+  <b-dropdown id="dropdown-right" right text="Right align" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+Dropup
+Turn your dropdown menu into a drop-up menu by setting the dropup prop.
+
+<div>
+  <b-dropdown id="dropdown-dropup" dropup text="Drop-Up" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+Drop right or left
+Turn your dropdown menu into a drop-right menu by setting the dropright prop. Or, turn it into a drop-left menu by setting the dropleft right prop to true.
+
+dropright takes precedence over dropleft. Neither dropright or dropleft have any effect if dropup is set.
+
+ 
+<div>
+  <b-dropdown id="dropdown-dropright" dropright text="Drop-Right" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+
+  <b-dropdown id="dropdown-dropleft" dropleft text="Drop-Left" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+Auto "flipping"
+By default, dropdowns may flip to the top, or to the bottom, based on their current position in the viewport. To disable this auto-flip feature, set the no-flip prop.
+
+Menu offset
+Like to move your menu away from the toggle buttons a bit? Then use the offset prop to specify the number of pixels to push right (or left when negative) from the toggle button:
+
+Specified as a number of pixels: positive for right shift, negative for left shift.
+Specify the distance in CSS units (i.e. 0.3rem, 4px, 1.2em, etc.) passed as a string.
+<div>
+  <b-dropdown id="dropdown-offset" offset="25" text="Offset Dropdown" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+Boundary constraint
+By default, dropdowns are visually constrained to its scroll parent, which will suffice in most situations. However, if you place a dropdown inside an element that has overflow: scroll (or similar) set, the dropdown menu may - in some situations - get cut off. To get around this, you can specify a boundary element via the boundary prop. Supported values are 'scrollParent' (the default), 'viewport', 'window' or a reference to an HTML element. The boundary value is passed directly to Popper.js's boundariesElement configuration option.
+
+Note: When boundary is any value other than the default of 'scrollParent', the style position: static is applied to to the dropdown component's root element in order to allow the menu to "break-out" of its scroll container. In some situations this may affect your layout or positioning of the dropdown trigger button. In these cases you may need to wrap your dropdown inside another element.
+
+Advanced Popper.js configuration
+If you need some advanced Popper.js configuration to make dropdowns behave to your needs, you can use the popper-opts prop to pass down a custom configuration object which will be deeply merged with the BootstrapVue defaults.
+
+Head to the Popper.js docs to see all the configuration options.
+
+Note: The props offset, boundary and no-flip may loose their effect when you overwrite the Popper.js configuration.
+
+Split button support
+Create a split dropdown button, where the left button provides standard click event and link support, while the right hand side is the dropdown menu toggle button.
+
+<div>
+  <b-dropdown split text="Split Dropdown" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+Split button link support
+The left split button defaults to an element of type <button> (a <b-button> to be exact). To convert this button into a link or <router-link>, specify the href via the split-href prop or a router link to value via the split-to prop, while maintaining the look of a button.
+
+<div>
+  <b-dropdown split split-href="#foo/bar" text="Split Link" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+Split button type
+The split button defaults to a button type of 'button'. You can specify an alternate type via the split-button-type prop. Supported values are: 'button', 'submit' and 'reset'.
+
+If props split-to or split-href are set, the split-button-type prop will be ignored.
+
+Styling options
+Dropdowns support various props for styling the dropdown trigger button.
+
+Sizing
+Dropdowns work with trigger buttons of all sizes, including default and split dropdown buttons.
+
+Set the size prop to either sm for small button(s), or lg for large button(s).
+
+ 
+ 
+<div>
+  <div>
+    <b-dropdown size="lg" text="Large" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here</b-dropdown-item-button>
+    </b-dropdown>
+
+    <b-dropdown size="lg" split text="Large Split" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
+    </b-dropdown>
+  </div>
+  <div>
+    <b-dropdown size="sm" text="Small" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
+    </b-dropdown>
+
+    <b-dropdown size="sm" split text="Small Split" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
+    </b-dropdown>
+  </div>
+</div>
+Note: changing the size of the button(s) does not affect the size of the menu items!
+
+Dropdown color variants
+The dropdown toggle button can have one of the standard Bootstrap contextual variants applied by setting the prop variant to success, primary, info, danger, link, outline-dark, etc. (or custom variants, if defined). The default variant is secondary.
+
+See the Variant Reference for a full list of built-in contextual variants.
+
+ 
+ 
+<div>
+  <b-dropdown text="Primary" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+
+  <b-dropdown text="Success" variant="success" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+
+  <b-dropdown text="Outline Danger" variant="outline-danger" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+You can also apply arbitrary classes to the toggle button via the toggle-class prop. This prop accepts either a string or array of strings.
+
+Split button color variant
+By default the left split button uses the same variant as the toggle button. You can give the split button its own variant via the split-variant prop.
+
+<div>
+  <b-dropdown
+    split
+    split-variant="outline-primary"
+    variant="primary"
+    text="Split Variant Dropdown"
+    class="m-2"
+  >
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+Block level dropdowns
+By default dropdowns act like buttons and are displayed inline. To create block level dropdowns (that span to the full width of a parent) set the block prop. Both, regular and split button dropdowns are supported.
+
+<div>
+  <b-dropdown text="Block Level Dropdown" block variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+
+  <b-dropdown
+    text="Block Level Split Dropdown"
+    block
+    split
+    split-variant="outline-primary"
+    variant="primary"
+    class="m-2"
+  >
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+If you want the dropdown menu to span to the full width of the parent container too, add the w-100 utility class to the menu-class prop.
+
+<div>
+  <b-dropdown
+    text="Block Level Dropdown Menu"
+    block
+    variant="primary"
+    class="m-2"
+    menu-class="w-100"
+  >
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+Dropdown sub-component color variants
+Many of the supported dropdown sub-components provide a variant prop for controlling their text color.
+
+Hidden caret
+The dropdown can be created with the toggle's caret visually hidden by setting the no-caret prop to true. This is useful when the dropdown is to be displayed as an icon.
+
+<div>
+  <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-caret>
+    <template #button-content>
+      &#x1f50d;<span class="sr-only">Search</span>
+    </template>
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+Note: The caret will always be shown when using split mode.
+
+Lazy dropdown
+By default, <b-dropdown> renders the menu contents in the DOM even when the menu is not shown. When there are a large number of dropdowns rendered on the same page, performance could be impacted due to larger overall memory utilization. You can instruct <b-dropdown> to render the menu contents only when it is shown by setting the lazy prop to true.
+
+Dropdown supported sub-components
+The following components can be placed inside of your dropdowns. Using any other component or markup may break layout and/or keyboard navigation.
+
+Sub-component	Description	Aliases
+<b-dropdown-item>	Action items that provide click, link, and <router-link>/<nuxt-link> functionality. Renders as an <a> element by default.	<b-dd-item>
+<b-dropdown-item-button>	An alternative to <b-dropdown-item> that renders a menu item using a <button> element.	<b-dropdown-item-btn>, <b-dd-item-button>, <b-dd-item-btn>
+<b-dropdown-divider>	A divider / spacer which can be used to separate dropdown items.	<b-dd-divider>
+<b-dropdown-text>	Free flowing text content in a menu.	<b-dd-text>
+<b-dropdown-form>	For placing form controls within a dropdown menu.	<b-dd-form>
+<b-dropdown-group>	For grouping dropdown sub components with an optional header.	<b-dd-group>
+<b-dropdown-header>	A header item, used to help identify a group of dropdown items.	<b-dd-header>
+Note: Nested sub-menus are not supported.
+
+<b-dropdown-item>
+The <b-dropdown-item> is typically used to create a navigation link inside your menu. Use either the href prop or the to prop (for router link support) to generate the appropriate navigation link. If neither href nor to are provided, a standard <a> link will be generated with an href of # (with an event handler that will prevent scroll to top behaviour by preventing the default link action).
+
+Disabled the dropdown item by setting the disabled prop.
+
+<b-dropdown-item-button>
+Historically dropdown menu contents had to be links (<b-dropdown-item>), but that's no longer the case with Bootstrap v4. Now you can optionally create <button> elements in your dropdowns by using the <b-dropdown-item-button> sub-component. <b-dropdown-item-button> does not support the href or to props.
+
+Disabled the dropdown item button by setting the disabled prop.
+
+<div>
+  <b-dropdown id="dropdown-buttons" text="Dropdown using buttons as menu items" class="m-2">
+    <b-dropdown-item-button>I'm a button</b-dropdown-item-button>
+    <b-dropdown-item-button active>I'm a active button</b-dropdown-item-button>
+    <b-dropdown-item-button disabled>I'm a button, but disabled!</b-dropdown-item-button>
+    <b-dropdown-item-button>I don't look like a button, but I am!</b-dropdown-item-button>
+  </b-dropdown>
+</div>
+When the menu item doesn't trigger navigation, it is recommended to use the <b-dropdown-item-button> sub-component.
+
+<b-dropdown-divider>
+Separate groups of related menu items with <b-dropdown-divider>.
+
+<div>
+  <b-dropdown id="dropdown-divider" text="Dropdown with divider" class="m-2">
+    <b-dropdown-item-button>First item</b-dropdown-item-button>
+    <b-dropdown-item-button>Second item</b-dropdown-item-button>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-item-button>Separated Item</b-dropdown-item-button>
+  </b-dropdown>
+</div>
+<b-dropdown-text>
+Place any freeform text within a dropdown menu using the <b-dropdown-text> sub component or use text and use spacing utilities. Note that you'll likely need additional sizing styles to constrain/set the menu width.
+
+<div>
+  <b-dropdown id="dropdown-text" text="Dropdown with text" class="m-2">
+    <b-dropdown-text style="width: 240px;">
+      Some example text that's free-flowing within the dropdown menu.
+    </b-dropdown-text>
+    <b-dropdown-text>And this is more example text.</b-dropdown-text>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-item-button>First item</b-dropdown-item-button>
+    <b-dropdown-item-button>Second Item</b-dropdown-item-button>
+  </b-dropdown>
+</div>
+<b-dropdown-text> has the BootstrapVue custom class .b-dropdown-text applied to it which sets some basic styles which are suitable in most situations. By default its width will be the same as the widest <b-dropdown-item> content. You may need to place additional styles or helper classes on the component.
+
+By default <b-dropdown-text> renders using tag <p>. You can change the rendered tag by setting the tag prop to any valid HTML5 tag on the <b-dropdown-text> sub-component.
+
+<b-dropdown-form>
+Dropdowns support basic forms. Put a <b-dropdown-form> within a dropdown menu and place form controls within the <b-dropdown-form>. The <b-dropdown-form> is based on the <b-form> component, and supports the same props and attributes as a regular form.
+
+<template>
+  <div>
+    <b-dropdown id="dropdown-form" text="Dropdown with form" ref="dropdown" class="m-2">
+      <b-dropdown-form>
+        <b-form-group label="Email" label-for="dropdown-form-email" @submit.stop.prevent>
+          <b-form-input
+            id="dropdown-form-email"
+            size="sm"
+            placeholder="email@example.com"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group label="Password" label-for="dropdown-form-password">
+          <b-form-input
+            id="dropdown-form-password"
+            type="password"
+            size="sm"
+            placeholder="Password"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
+        <b-button variant="primary" size="sm" @click="onClick">Sign In</b-button>
+      </b-dropdown-form>
+      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button>
+      <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
+    </b-dropdown>
+  </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      onClick() {
+        // Close the menu and (by passing true) return focus to the toggle button
+        this.$refs.dropdown.hide(true)
+      }
+    }
+  }
+</script>
+<b-dropdown-form> has the BootstrapVue custom class .b-dropdown-form applied to it which sets some basic styles which are suitable in most situations. By default its width will be the same as the widest <b-dropdown-item> content. You may need to place additional styles or helper classes on the component.
+
+<b-dropdown-group>
+Group a set of dropdown sub components with an optional associated header. Place a <b-dropdown-divider> between your <b-dropdown-group> and other groups or non-grouped dropdown contents
+
+<div>
+  <b-dropdown id="dropdown-grouped" text="Dropdown with group" class="m-2">
+    <b-dropdown-item-button>
+      Non-grouped Item
+    </b-dropdown-item-button>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-group id="dropdown-group-1" header="Group 1">
+      <b-dropdown-item-button>First Grouped item</b-dropdown-item-button>
+      <b-dropdown-item-button>Second Grouped Item</b-dropdown-item-button>
+    </b-dropdown-group>
+    <b-dropdown-group id="dropdown-group-2" header="Group 2">
+      <b-dropdown-item-button>First Grouped item</b-dropdown-item-button>
+      <b-dropdown-item-button>Second Grouped Item</b-dropdown-item-button>
+    </b-dropdown-group>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-item-button>
+      Another Non-grouped Item
+    </b-dropdown-item-button>
+  </b-dropdown>
+</div>
+Using <b-dropdown-group> instead of <b-dropdown-header> is the recommended method for providing accessible grouped items with a header.
+
+<b-dropdown-header>
+Add a header to label sections of actions in any dropdown menu.
+
+<div>
+  <b-dropdown id="dropdown-header" text="Dropdown with header" class="m-2">
+    <b-dropdown-header id="dropdown-header-label">
+      Dropdown header
+    </b-dropdown-header>
+    <b-dropdown-item-button aria-describedby="dropdown-header-label">
+      First item
+    </b-dropdown-item-button>
+    <b-dropdown-item-button aria-describedby="dropdown-header-label">
+      Second Item
+    </b-dropdown-item-button>
+  </b-dropdown>
+</div>
+See Section Dropdown headers and accessibility for details on making headers more accessible for users of assistive technologies.
+
+Using the <b-dropdown-group> sub-component simplifies creating accessible grouped dropdown items with an associated header.
+
+Closing the menu via form interaction
+Clicking buttons inside of a <b-dropdown-form> will not automatically close the menu. If you need to close the menu using a button (or via the form submit event), call the hide() method on the <b-dropdown> instance, as is shown in the above example.
+
+The hide() method accepts a single boolean argument. If the argument is true, then focus will be returned to the dropdown toggle button after the menu has closed. Otherwise the document will gain focus once the menu is closed.
+
+Listening to dropdown changes via $root events
+To listen to any dropdown opening, use:
+
+export default {
+  mounted() {
+    this.$root.$on('bv::dropdown::show', bvEvent => {
+      console.log('Dropdown is about to be shown', bvEvent)
+    })
+  }
+}
+Refer to the Events section of documentation for the full list of events.
+
+Optionally scoped default slot
+The default slot is optionally scoped with the following scope available:
+
+Property or Method	Description
+hide()	Can be used to close the dropdown menu. Accepts an optional boolean argument, which if true returns focus to the toggle button
+Accessibility
+Providing a unique id prop ensures ARIA compliance by automatically adding the appropriate aria-* attributes in the rendered markup.
+
+The default ARIA role is set to menu, but you can change this default to another role (such as navigation) via the role prop, depending on your user case. The role prop value will be used to determine aria-haspopup attribute for the toggle button.
+
+When a menu item doesn't trigger navigation, it is recommended to use the <b-dropdown-item-button> sub-component (which is not announced as a link) instead of <b-dropdown-item> (which is presented as a link to the user).
+
+Headers and accessibility
+When using <b-dropdown-header> components in the dropdown menu, it is recommended to add an id attribute to each of the headers, and then set the aria-describedby attribute (set to the id value of the associated header) on each following dropdown items under that header. This will provide users of assistive technologies (i.e. sight-impaired users) additional context about the dropdown item:
+
+<div>
+  <b-dropdown id="dropdown-aria" text="Dropdown ARIA" variant="primary" class="m-2">
+    <b-dropdown-header id="dropdown-header-1">Groups</b-dropdown-header>
+    <b-dropdown-item-button aria-describedby="dropdown-header-1">Add</b-dropdown-item-button>
+    <b-dropdown-item-button aria-describedby="dropdown-header-1">Delete</b-dropdown-item-button>
+
+    <b-dropdown-header id="dropdown-header-2">Users</b-dropdown-header>
+    <b-dropdown-item-button aria-describedby="dropdown-header-2">Add</b-dropdown-item-button>
+    <b-dropdown-item-button aria-describedby="dropdown-header-2">Delete</b-dropdown-item-button>
+
+    <b-dropdown-divider></b-dropdown-divider>
+
+    <b-dropdown-item-button>
+      Something <strong>not</strong> associated with Users
+    </b-dropdown-item-button>
+
+  </b-dropdown>
+</div>
+As a simplified alternative, use the <b-dropdown-group> instead to easily associate header text to the contained dropdown sub-components.
+
+Keyboard navigation
+Dropdowns support keyboard navigation, emulating native <select> behaviour.
+
+Note that Down and Up will not move focus into <b-dropdown-form> sub components, but users can still use Tab or Shift+Tab to move into form controls within the menu.
+
+Implementation notes
+The dropdown menu is rendered with semantic <ul> and <li> elements for accessibility reasons. The .dropdown-menu is the <ul> element, while dropdown items (items, buttons, text, form, headers, and dividers) are wrapped in an <li> element. If creating custom items to place inside the dropdown menu, ensure they are wrapped with a plain <li>.
+
+See also
+<b-nav-item-dropdown> for dropdown support inside <b-nav> and <n-navbar>
+Router Link Support reference for information about router-link specific props available on <b-dropdown-item>
+Component reference
+<b-dropdown>
+<b-dropdown> Component aliases
+<b-dropdown> Properties
+<b-dropdown> Slots
+<b-dropdown> Events
+Component aliases 
+<b-dropdown> can also be used via the following aliases:
+
+<b-dd>
+Note: component aliases are only available when importing all of BootstrapVue or using the component group plugin.
+
+Properties 
+All property default values are globally configurable.
+
+Property
+(Click to sort ascending)	
+Type
+(Click to sort ascending)	
+Default
+Description
+block
+v2.1.0+	Boolean	false	Renders a 100% width toggle button (expands to the width of its parent container)
+boundary
+HTMLElement or String	'scrollParent'	The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement
+disabled
+Boolean	false	When set to `true`, disables the component's functionality and places it in a disabled state
+dropleft
+Boolean	false	When set, positions the menu to the left of the button
+dropright
+Boolean	false	When set, positions the menu to the right of the button
+dropup
+Boolean	false	When set, positions the menu on the top of the button
+html
+Use with caution	String		HTML string to place in the toggle button, or in the split button is split mode
+id
+String		Used to set the `id` attribute on the rendered content, and used as the base to generate any additional element IDs as needed
+lazy
+Boolean	false	When set, will only mount the menu content into the DOM when the menu is open
+menu-class
+Array or Object or String		CSS class (or classes) to add to the menu container
+no-caret
+Boolean	false	Hide the caret indicator on the toggle button
+no-flip
+Boolean	false	Prevent the menu from auto flipping positions
+offset
+Number or String	0	Specify the number of pixels to shift the menu by. Negative values supported
+popper-opts
+Object	{}	Additional configuration to pass to Popper.js
+right
+Boolean	false	Align the right edge of the menu with the right of the button
+role
+String	'menu'	Sets the ARIA attribute `role` to a specific value
+size
+String		Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'
+split
+Boolean	false	When set, renders a split button dropdown
+split-button-type
+String	'button'	Value to place in the 'type' attribute on the split button: 'button', 'submit', 'reset'
+split-class
+v2.2.0+	Array or Object or String		CSS class (or classes) to add to the split button
+split-href
+String		Denotes the target URL of the link for the split button
+split-to
+Object or String		<router-link> prop: Denotes the target route of the split button. When clicked, the value of the to prop will be passed to router.push() internally, so the value can be either a string or a Location descriptor object
+split-variant
+String		Applies one of the Bootstrap theme color variants to the split button. Defaults to the 'variant' prop value
+text
+String		Text to place in the toggle button, or in the split button is split mode
+toggle-attrs
+v2.22.0+	Object	{}	Additional attributes to apply to the toggle button
+toggle-class
+Array or Object or String		CSS class (or classes) to add to the toggle button
+toggle-tag
+Use with caution	String	'button'	Specify the HTML tag to render instead of the default tag
+toggle-text
+String	'Toggle dropdown'	ARIA label (sr-only) to set on the toggle when in split mode
+variant
+String	'secondary'	Applies one of the Bootstrap theme color variants to the component
+<b-dropdown> supports generating <router-link> or <nuxt-link> component (if using Nuxt.js). For more details on the router link (or nuxt link) specific props, see the Router support reference section.
+
+Caution: Props that support HTML strings (*-html) can be vulnerable to Cross Site Scripting (XSS) attacks when passed raw user supplied values. You must properly sanitize the user input first!
+
+Slots 
+Name
+Scoped
+Description
+button-content	No	Can be used to implement custom text with icons and more styling
+default		Optionally scoped default slot for dropdown menu content
+Events 
+Event
+Arguments
+Description
+bv::dropdown::hide	
+bvEvent - BvEvent object. Call bvEvent.preventDefault() to cancel hide
+Emitted on $root just before dropdown is hidden. Cancelable
+bv::dropdown::show	
+bvEvent - BvEvent object. Call bvEvent.preventDefault() to cancel show
+Emitted on $root just before dropdown is shown. Cancelable
+click	
+event - Native click event object
+Emitted when split button is clicked in split mode
+hidden		Emitted when dropdown is hidden
+hide	
+bvEvent - BvEvent object. Call bvEvent.preventDefault() to cancel hide
+Emitted just before dropdown is hidden. Cancelable
+show	
+bvEvent - BvEvent object. Call bvEvent.preventDefault() to cancel show
+Emitted just before dropdown is shown. Cancelable
+shown		Emitted when dropdown is shown
+toggle		Emitted when toggle button is clicked
+<b-dropdown-item>
+<b-dropdown-item> Component aliases
+<b-dropdown-item> Properties
+<b-dropdown-item> Slots
+<b-dropdown-item> Events
+Component aliases 
+<b-dropdown-item> can also be used via the following aliases:
+
+<b-dd-item>
+Note: component aliases are only available when importing all of BootstrapVue or using the component group plugin.
+
+Properties 
+All property default values are globally configurable.
+
+Property
+(Click to sort ascending)	
+Type
+(Click to sort ascending)	
+Default
+Description
+active
+Boolean	false	When set to `true`, places the component in the active state with active styling
+active-class
+String		<router-link> prop: Configure the active CSS class applied when the link is active. Typically you will want to set this to class name 'active'
+append
+Boolean	false	<router-link> prop: Setting append prop always appends the relative path to the current path
+disabled
+Boolean	false	When set to `true`, disables the component's functionality and places it in a disabled state
+exact
+Boolean	false	<router-link> prop: The default active class matching behavior is inclusive match. Setting this prop forces the mode to exactly match the route
+exact-active-class
+String		<router-link> prop: Configure the active CSS class applied when the link is active with exact match. Typically you will want to set this to class name 'active'
+exact-path
+Boolean	false	<router-link> prop: Allows matching only using the path section of the url, effectively ignoring the query and the hash sections
+exact-path-active-class
+String		<router-link> prop: Configure the active CSS class applied when the link is active with exact path match. Typically you will want to set this to class name 'active'
+href
+String		<b-link> prop: Denotes the target URL of the link for standard a links
+link-class
+v2.9.0+	Array or Object or String		Class or classes to apply to the inner link element
+no-prefetch
+Boolean	false	<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will disabled this feature for the specific link
+prefetch
+v2.15.0+	Boolean	null	<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `prefetch` to `true` or `false` will overwrite the default value of `router.prefetchLinks`
+rel
+String	null	<b-link> prop: Sets the `rel` attribute on the rendered link
+replace
+Boolean	false	<router-link> prop: Setting the replace prop will call `router.replace()` instead of `router.push()` when clicked, so the navigation will not leave a history record
+router-component-name
+v2.15.0+	String		<b-link> prop: BootstrapVue auto detects between `<router-link>` and `<nuxt-link>`. In cases where you want to use a 3rd party link component based on `<router-link>`, set this prop to the component name. e.g. set it to 'g-link' if you are using Gridsome (note only `<router-link>` specific props are passed to the component)
+target
+String	'_self'	<b-link> prop: Sets the `target` attribute on the rendered link
+to
+Object or String		<router-link> prop: Denotes the target route of the link. When clicked, the value of the to prop will be passed to `router.push()` internally, so the value can be either a string or a Location descriptor object
+variant
+String		Applies one of the Bootstrap theme color variants to the component
+<b-dropdown-item> supports generating <router-link> or <nuxt-link> component (if using Nuxt.js). For more details on the router link (or nuxt link) specific props, see the Router support reference section.
+
+Slots 
+Name
+Description
+default	Content to place in the dropdown item
+Events 
+Event
+Arguments
+Description
+click	
+Native click event object
+Emitted when item is clicked
+<b-dropdown-item-button>
+<b-dropdown-item-button> Component aliases
+<b-dropdown-item-button> Properties
+<b-dropdown-item-button> Slots
+<b-dropdown-item-button> Events
+Component aliases 
+<b-dropdown-item-button> can also be used via the following aliases:
+
+<b-dropdown-item-btn>
+<b-dd-item-button>
+<b-dd-item-btn>
+Note: component aliases are only available when importing all of BootstrapVue or using the component group plugin.
+
+Properties 
+All property default values are globally configurable.
+
+Property
+Type
+Default
+Description
+active
+Boolean	false	When set to `true`, places the component in the active state with active styling
+active-class
+String	'active'	<router-link> prop: Configure the active CSS class applied when the link is active. Typically you will want to set this to class name 'active'
+button-class
+v2.9.0+	Array or Object or String		Class or classes to apply to the inner button element
+disabled
+Boolean	false	When set to `true`, disables the component's functionality and places it in a disabled state
+variant
+String		Applies one of the Bootstrap theme color variants to the component
+Slots 
+Name
+Description
+default	Content to place in the dropdown item-button
+Events 
+Event
+Arguments
+Description
+click	
+Native click event object
+Emitted when button item is clicked
+<b-dropdown-divider>
+Functional component
+<b-dropdown-divider> Component aliases
+<b-dropdown-divider> Properties
+Component aliases 
+<b-dropdown-divider> can also be used via the following aliases:
+
+<b-dd-divider>
+Note: component aliases are only available when importing all of BootstrapVue or using the component group plugin.
+
+Properties 
+All property default values are globally configurable.
+
+Property
+Type
+Default
+Description
+tag
+String	'hr'	Specify the HTML tag to render instead of the default tag
+<b-dropdown-form>
+Functional component
+<b-dropdown-form> Component aliases
+<b-dropdown-form> Properties
+<b-dropdown-form> Slots
+Component aliases 
+<b-dropdown-form> can also be used via the following aliases:
+
+<b-dd-form>
+Note: component aliases are only available when importing all of BootstrapVue or using the component group plugin.
+
+Properties 
+All property default values are globally configurable.
+
+Property
+Type
+Default
+Description
+disabled
+Boolean	false	When set to `true`, disables the component's functionality and places it in a disabled state
+form-class
+v2.2.0+	Array or Object or String		CSS class (or classes) to add to the form
+id
+String		Used to set the `id` attribute on the rendered content, and used as the base to generate any additional element IDs as needed
+inline
+Boolean	false	When set, the form will be in inline mode which display labels, form controls, and buttons on a single horizontal row
+novalidate
+Boolean	false	When set, disables browser native HTML5 validation on controls in the form
+validated
+Boolean	false	When set, adds the Bootstrap class 'was-validated' on the form, triggering the native browser validation states
+Slots 
+Name
+Description
+default	Content to place in the dropdown form
+<b-dropdown-text>
+Functional component
+<b-dropdown-text> Component aliases
+<b-dropdown-text> Properties
+<b-dropdown-text> Slots
+Component aliases 
+<b-dropdown-text> can also be used via the following aliases:
+
+<b-dd-text>
+Note: component aliases are only available when importing all of BootstrapVue or using the component group plugin.
+
+Properties 
+All property default values are globally configurable.
+
+Property
+Type
+Default
+Description
+tag
+String	'p'	Specify the HTML tag to render instead of the default tag
+text-class
+Array or Object or String		Class or classes to apply to the inner element
+variant
+String		Applies one of the Bootstrap theme color variants to the component
+Slots 
+Name
+Description
+default	Content to place in the dropdown text
+<b-dropdown-group>
+Functional component
+<b-dropdown-group> Component aliases
+<b-dropdown-group> Properties
+<b-dropdown-group> Slots
+Component aliases 
+<b-dropdown-group> can also be used via the following aliases:
+
+<b-dd-group>
+Note: component aliases are only available when importing all of BootstrapVue or using the component group plugin.
+
+Properties 
+All property default values are globally configurable.
+
+Property
+Type
+Default
+Description
+aria-describedby
+String		The ID of the element that provides additional context for this component. Used as the value for the `aria-describedby` attribute
+header
+String		Text content to place in the header
+header-classes
+Array or Object or String		CSS class (or classes) to add to the header
+header-tag
+String	'header'	Specify the HTML tag to render instead of the default tag for the header
+header-variant
+String		Applies one of the Bootstrap theme color variants to the header
+id
+String		Used to set the `id` attribute on the rendered content, and used as the base to generate any additional element IDs as needed
+Slots 
+Name
+Description
+default	Content (items) to place in the dropdown group
+header	Optional header content for the dropdown group
+<b-dropdown-header>
+Functional component
+<b-dropdown-header> Component aliases
+<b-dropdown-header> Properties
+<b-dropdown-header> Slots
+Component aliases 
+<b-dropdown-header> can also be used via the following aliases:
+
+<b-dd-header>
+Note: component aliases are only available when importing all of BootstrapVue or using the component group plugin.
+
+Properties 
+All property default values are globally configurable.
+
+Property
+Type
+Default
+Description
+id
+String		Used to set the `id` attribute on the rendered content, and used as the base to generate any additional element IDs as needed
+tag
+String	'header'	Specify the HTML tag to render instead of the default tag
+variant
+String		Applies one of the Bootstrap theme color variants to the component
+Slots 
+Name
+Description
+default	Content to place in the dropdown header
+Importing individual components 
+You can import individual components into your project via the following named exports:
+
+Component
+Named Export
+Import Path
+<b-dropdown>	BDropdown	bootstrap-vue
+<b-dropdown-item>	BDropdownItem	bootstrap-vue
+<b-dropdown-item-button>	BDropdownItemButton	bootstrap-vue
+<b-dropdown-divider>	BDropdownDivider	bootstrap-vue
+<b-dropdown-form>	BDropdownForm	bootstrap-vue
+<b-dropdown-text>	BDropdownText	bootstrap-vue
+<b-dropdown-group>	BDropdownGroup	bootstrap-vue
+<b-dropdown-header>	BDropdownHeader	bootstrap-vue
+Example:
+
+import { BDropdown } from 'bootstrap-vue'
+Vue.component('b-dropdown', BDropdown)
+Importing as a Vue.js plugin 
+This plugin includes all of the above listed individual components. Plugins also include any component aliases.
+
+Named Export
+Import Path
+DropdownPlugin	bootstrap-vue
+Example:
+
+import { DropdownPlugin } from 'bootstrap-vue'
+Vue.use(DropdownPlugin)
+Documentation
+Home
+Getting Started
+Components
+Directives
+Icons
+Reference
+Playground
+Themes
+Themes and dashboards
+Community
+GitHub
+Discord chat
+Twitter
+Open Collective
+Release notes
+Changelog
+Designed and built with all the love in the world. Maintained by the core team with the help of our contributors.
+
+Currently v2.23.0. Code licensed MIT. Docs generated with Nuxt.js and proudly hosted on Vercel.
+
