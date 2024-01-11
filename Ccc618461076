@@ -1,0 +1,335 @@
+#2
+
+
+"Bootstrap Dropdowns (Dropdown Menus) - Tutlane" https://www.tutlane.com/tutorial/bootstrap/bootstrap-dropdowns
+
+
+
+
+ Home
+ Tutorials 
+ Examples
+Bootstrap Dropdowns (Dropdown Menus)
+
+Generally, the dropdown is a toggleable contextual overlay to display the list of items, links, etc., and it will allow users to choose one value from the list of items. To make the dropdowns more interactive, bootstrap has provided a dropdown JavaScript plugin.
+
+ 
+
+In bootstrap, the dropdowns are built on a third-party library popper.js to provide dynamic positioning and viewport detection. The bootstrap dropdowns are more generic, and it will allow us to create a dropdown menu with any of the elements such as links, input controls, search fields, etc., based on our requirements.
+
+Bootstrap Create Dropdown
+Using the bootstrap dropdown plugin, we can convert HTML elements such as buttons and links as dropdown menus with some markup changes.
+
+ 
+
+For dropdown creation first, you need to create a dropdown toggle element, i.e., either button (<button>) or link (<a>) by adding .dropdown-toggle class and data-toggle="dropdown" attribute to open the dropdown menu items like as shown below.
+
+ 
+
+<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+   Dropdown button
+</button>
+After creating the dropdown toggle element, now you need to build a dropdown menu, for that create <div> element with .dropdown-menu class and add dropdown menu items with .dropdown-item class like as shown below.
+
+ 
+
+<div class="dropdown-menu">
+   <a class="dropdown-item" href="#">Database</a>
+   <a class="dropdown-item" href="#">Server Side</a>
+   <a class="dropdown-item" href="#">Client Side</a>
+</div>
+To make a complete dropdown, you need to wrap both dropdown toggle element (<button>) and dropdown menu items within the <div> element by adding .dropdown class like as shown below.
+
+ 
+
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+       Tutorials
+    </button>
+    <div class="dropdown-menu">
+       <a class="dropdown-item" href="#">Database</a>
+       <a class="dropdown-item" href="#">Server Side</a>
+       <a class="dropdown-item" href="#">Client Side</a>
+    </div>
+</div>
+The above example will return the result as shown below.
+
+ 
+
+
+
+Bootstrap Dropdown with HyperLink
+In the above example, we used button (<button>) element as a toggle element to show the dropdown menu list items. If required, we can also use hyperlink (<a>) as dropdown toggle element like as shown below.
+
+ 
+
+<div class="dropdown">
+    <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+       Tutorials
+    </a>
+    <div class="dropdown-menu">
+       <a class="dropdown-item" href="#">Database</a>
+       <a class="dropdown-item" href="#">Server Side</a>
+       <a class="dropdown-item" href="#">Client Side</a>
+    </div>
+</div>
+The above example will return the result as shown below.
+
+ 
+
+
+
+Bootstrap Button Groups with Dropdown
+To create a dropdown with button groups, you need to create a <div> element with .btn-group class and place dropdown markup within another .btn-group class like as shown below.
+
+ 
+
+<div class="btn-group">
+   <button type="button" class="btn btn-primary">Home</button>
+   <button type="button" class="btn btn-primary">Articles</button>
+   <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+         Tutorials
+      </button>
+      <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Database</a>
+          <a class="dropdown-item" href="#">Server Side</a>
+          <a class="dropdown-item" href="#">Client Side</a>
+      </div>
+   </div>
+</div>
+The above example will return the result as shown below.
+
+ 
+
+
+
+Bootstrap Multiple Buttons with Dropdowns
+If you observe the above examples, we created a dropdown menu with only one single button (<button>) or link (<a>) with primary (.btn-primary) class. Similarly, if required, we can also use other variants of buttons to create dropdowns, as shown below.
+
+ 
+
+<div class="btn-group">
+   <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+      Success
+   </button>
+   <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Database</a>
+      <a class="dropdown-item" href="#">Server Side</a>
+      <a class="dropdown-item" href="#">Client Side</a>
+   </div>
+</div>
+In the above example, we added a single button dropdown. Similarly, you can add multiple button dropdowns, and that will return the result as shown below.
+
+ 
+
+
+
+Bootstrap Dropdown Menu Alignment
+By default, the dropdown menu is automatically positioned to the left side of its parent. In case if you want to change the dropdown menu alignment to the right, you need to add .dropdown-menu-right to <div> element along with .dropdown-menu class like as shown below.
+
+ 
+
+<div class="btn-group">
+   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+      Bootstrap Right Alignment Dropdown Menu
+   </button>
+   <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item" href="#">Database</a>
+      <a class="dropdown-item" href="#">Server Side</a>
+      <a class="dropdown-item" href="#">Client Side</a>
+   </div>
+</div>
+If you observe the above code, we added .dropdown-menu-right to <div> element along with .dropdown-menu class.
+
+ 
+
+The above example will return the result as shown below.
+
+ 
+
+
+
+Bootstrap Dropdown Menu Directions
+By default, the bootstrap dropdown menu will appear below the element. In case, if you want to trigger the dropdown menu above the element or left / right of the element that you can achieve by adding .droptop, .dropright, and .dropleft classes to the parent element like as shown below.
+
+ 
+
+<div class="btn-group dropup">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+       Dropup
+    </button>
+    <div class="dropdown-menu">
+       <a class="dropdown-item" href="#">Database</a>
+       <a class="dropdown-item" href="#">Server Side</a>
+       <a class="dropdown-item" href="#">Client Side</a>
+    </div>
+</div>
+<div class="btn-group dropleft">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+      Dropleft
+    </button>
+    <div class="dropdown-menu">
+       <a class="dropdown-item" href="#">Database</a>
+       <a class="dropdown-item" href="#">Server Side</a>
+       <a class="dropdown-item" href="#">Client Side</a>
+    </div>
+</div>
+<div class="btn-group dropright">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+       Dropright
+    </button>
+    <div class="dropdown-menu">
+       <a class="dropdown-item" href="#">Database</a>
+       <a class="dropdown-item" href="#">Server Side</a>
+       <a class="dropdown-item" href="#">Client Side</a>
+    </div>
+</div>
+The above example will return the result as shown below.
+
+ 
+
+
+
+Bootstrap Dropdown Menu with Headers
+In bootstrap, you can add header titles inside dropdown menus to provide more information about the action links. To do this, add the .dropdown-header class inside a list item in the unordered list of the dropdown menu like as shown below.
+
+ 
+
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+       Tutorials
+    </button>
+    <div class="dropdown-menu">
+        <div class="dropdown-header">Databases</div>
+        <a class="dropdown-item" href="#">MySQL</a>
+        <a class="dropdown-item" href="#">SQL Server</a>
+        <a class="dropdown-item" href="#">SQLite</a>
+        <div class="dropdown-header">Programming</div>
+        <a class="dropdown-item" href="#">Java</a>
+        <a class="dropdown-item" href="#">.NET</a>
+        <a class="dropdown-item" href="#">Python</a>
+    </div>
+</div>
+If you observe the above code, we created two header titles (Databases, Programming) by adding .dropdown-header class to <div> elements.
+
+ 
+
+The above example will return the result as shown below.
+
+ 
+
+
+
+Bootstrap Dropdown Menu with Dividers
+In bootstrap, by using .dropdown-divider class, you can insert a horizontal line/divider between menu items of the dropdown to separate the group of related menu items like as shown below.
+
+ 
+
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+       Tutorials
+    </button>
+    <div class="dropdown-menu">
+       <div class="dropdown-header">Databases</div>
+       <div class="dropdown-divider"></div>
+       <a class="dropdown-item" href="#">MySQL</a>
+       <a class="dropdown-item" href="#">SQL Server</a>
+       <a class="dropdown-item" href="#">SQLite</a>
+       <div class="dropdown-divider"></div>
+       <div class="dropdown-header">Programming</div>
+       <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Java</a>
+          <a class="dropdown-item" href="#">.NET</a>
+          <a class="dropdown-item" href="#">Python</a>
+       </div>
+</div>
+The above example will return the result as shown below.
+
+ 
+
+
+
+Bootstrap Dropdown Menu with Active / Disable Items
+In bootstrap, by adding .active and .disabled classes to the dropdown menu items, we can style them as active or disabled based on our requirements like as shown below.
+
+ 
+
+<div class="btn-group">
+   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+     Tutorials
+   </button>
+   <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">MySQL</a>
+      <a class="dropdown-item active" href="#">SQL Server</a>
+      <a class="dropdown-item" href="#">SQLite</a>
+      <a class="dropdown-item disabled" href="#">Java</a>
+      <a class="dropdown-item disabled" href="#">.NET</a>
+      <a class="dropdown-item" href="#">Python</a>
+   </div>
+</div>
+The above example will return the result as shown below.
+
+ 
+
+
+
+Bootstrap Split Button Dropdowns
+In bootstrap, the split button dropdowns creation is same as single button dropdowns, but the only difference is we need to add an extra button element with .dropdown-toggle-split class to the toggle element for proper spacing around the dropdown.
+
+ 
+
+<div class="btn-group">
+   <button type="button" class="btn btn-primary">Primary</button>
+   <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+   </button>
+   <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Database</a>
+      <a class="dropdown-item" href="#">Server Side</a>
+      <a class="dropdown-item" href="#">Client Side</a>
+   </div>
+</div>
+In the above example, we added a single split button dropdown. Similarly, you can add multiple split button dropdowns, which will return the result as shown below.
+
+ 
+
+
+
+ 
+
+This is how we can create the dropdowns using buttons or hyperlinks, etc., using different bootstrap classes based on our requirements. 
+
+   
+CONTACT US
+ Address: No.1-93, Pochamma Colony, Manikonda, Hyderabad, Telangana - 500089
+ Email: support@tutlane.com
+TUTORIALS
+Web Designing Tutorials
+.NET Tutorials
+JAVA Tutorials
+Database Tutorials
+COMPANY
+About Us
+Contact Us
+Careers
+FAQ's
+EXAMPLES
+AngularJS Examples
+JavaScript Examples
+jQuery Examples
+CSS Examples
+RESOURCES
+Blogs
+Articles
+News
+Forums
+ 2023 Tutlane | Terms and Conditions | Privacy Policy
+
+ 
+ 
+
+Orihinal na teksto
+I-rate ang pagsasaling ito
+Gagamitin ang iyong feedback para makatulong na pahusayin ang Google Translate
+
+
