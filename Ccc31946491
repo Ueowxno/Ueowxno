@@ -1,0 +1,37 @@
+#9
+
+
+
+"How to get dropdown menu to the left, also shows all the time on page load - HTML & CSS - SitePoint Forums | Web Development & Design Community" https://www.sitepoint.com/community/t/how-to-get-dropdown-menu-to-the-left-also-shows-all-the-time-on-page-load/398228
+
+
+
+
+
+
+You removed the class called dropdown-menu which is what the js is looking for to toggle the element.
+
+Your html should be like this:
+
+<div class="dropdown dropright"> <a class="nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="material-icons-person"> person </span> </a> <div class="dropdown-menu dropdown-menu-person" aria-labelledby="dropdownMenuLink"> <h4 class="header-person">Profile</h4> <div class="person-email" disabled="true">user@user.com</div> <a class="dropdown-item" href="#">Logout</a> </div> 
+
+I added dropright to the parent and dropdown-menu to the element with dropdown-menu-person.
+
+That would have been all you needed to do but because you have styled dropdown-menu-person using !important then not much of the bootstrap css will take effect so you will now need to over-ride your over-ride.
+
+e.g.
+
+.dropright .dropdown-menu{ left:auto!important; right:0!important; } 
+
+That will need to follow your other rules. In essence you didn’t need any of your rules apart from the styling the position was controlled via existing bootstrap css. Only style the differences and refer to the documentation on how to move the menu around.
+
+￼getbootstrap.com
+
+￼
+
+Dropdowns 7
+
+Toggle contextual overlays for displaying lists of links and more with the Bootstrap dropdown plugin.
+
+Also don’t use !important like that as you will rarely need !important. I’ve used it a couple of times only in about 100 sites. You should instead match specificity with your rules otherwise you get into a situation where every rule has !important and that’s nonsense and pretty useless for maintenance.￼
+
