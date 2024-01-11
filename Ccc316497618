@@ -1,0 +1,241 @@
+#18
+
+
+"javascript - How to dynamically create a bootstrap dropdown based on data - Stack Overflow" https://stackoverflow.com/questions/36637774/how-to-dynamically-create-a-bootstrap-dropdown-based-on-data
+
+
+
+
+
+
+Stack Overflow
+Products
+How to dynamically create a bootstrap dropdown based on data
+Asked 7 years, 8 months ago
+Modified 7 years, 8 months ago
+Viewed 3k times
+1
+
+So I am currently attempting to build a shopping cart application using the MEAN stack (mongodb/mongoose, express, ajax, node.js). Using bootstrap to build the site.
+
+There are groups of products that can be created or destroyed so need to be dynamically created. I have a collection in my database called groups. It contains on field(groupName: 'movies') and than the id that mongo creates for it. So I need to go through the groups collection and for each group I find create a dropdown option for that group.
+
+This is my controller for the page
+
+//bring in models of data
+var products = require('../models').Products;
+var groups = require('../models').Groups;
+
+//page functions go inside of module.exports
+module.exports = {
+    index: function(req, res){
+        products.find({}, function(err, products){
+            if(err){
+                consol.log(err);
+            }
+            else{
+                res.render('basic-page1', {dropdown: dropdown, title: 'Home', beforelogin: true, subtitle: 'Home', underheaderp: 'To search for products select a product group.'});
+
+            }
+        });
+    }
+}
+
+var dropdown = function createSelect(){
+    var dd = "";
+    dd+= "<button class='btn btn-default dropdown-toggle' type='button' data-toggle='dropdown' id='dropdownProduct'>Please Select a Product Group<span class='caret'></span></button>";
+    var group = groups.find({}, function(err, groups){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dd+="<ul class='dropdown-menu col-xs-5'>";
+            var i = 0;
+            while(i <= group.length){
+                dd+="<li><a href='#'>Hockey Jerseys</a></li>";
+            }
+                dd+="</ul>";
+        }
+    });
+    return dd;
+}
+This code does not get any errors but does not print any of the dropdown options. The wile loop is were the problems are occurring.
+
+When I change that loop to while(i < groups.length){..} or to while(i < 2){..} for testing purposes I get an error of RangeError: Invalid string length
+
+With further research of this error it does not seem to be very clear what exactly may be occurring.
+
+Am I missing a step in the attempt to loop through the groups?
+
+Any help/guidance is greatly appreciated.
+
+javascriptnode.jstwitter-bootstrapmongodbloops
+Share
+Improve this question
+Follow
+asked Apr 15, 2016 at 3:31
+
+Zgbrell
+15944 silver badges1717 bronze badges
+Add a comment
+
+Report this ad
+1 Answer
+Sorted by:
+
+Highest score (default)
+1
+
+Your createSelect is asynchronous and you are using it synchronously, which means return dd will always return undefined. Change it to this
+
+function createSelect(callback){ 
+    var dd = "";
+    dd+= "<button class='btn btn-default dropdown-toggle' type='button' data-toggle='dropdown' id='dropdownProduct'>Please Select a Product Group<span class='caret'></span></button>"; 
+    groups.find({}, function(err, groups){ 
+        if(err){   
+             console.log(err);
+        }else{ 
+            dd+="<ul class='dropdown-menu col-xs-5'>"; 
+
+            for(var i=0; i< groups.length;i++){ 
+              //dd+="<li><a href='#'>Hockey Jerseys</a></li>"; 
+              // update
+              dd+="<li><a href='#'>" + groups[i].groupName + "</a></li>";
+            } 
+            dd+="</ul>"; 
+            callback(dd);
+        } 
+    }); 
+}
+And use it like this
+
+....
+createSelect(function(dropdown){
+    res.render(....);
+});
+....
+Share
+Improve this answer
+Follow
+edited Apr 15, 2016 at 17:36
+answered Apr 15, 2016 at 9:16
+
+Molda
+5,64922 gold badges2323 silver badges3939 bronze badges
+Awesome thank you! That works very well. I ended up using the createSelect() in my module.export and it prints my page for me. – 
+Zgbrell
+ Apr 15, 2016 at 16:29
+Now the issue is that inside of the for loop were it is printing the <li>Hockey Jerseys</li>. I need that to print the groupName of each group from the database. As far as I have read it should be pretty simple but my testing has yet to give positive results. it should look something like this I believe dd+="<li><a href='#'>groups.groupName[i]</a></li> I obviously am still testing and searching for an answer. But any help is greatly appreciated. – 
+Zgbrell
+ Apr 15, 2016 at 16:33
+Glad i could help :) the dd line should look like this dd+="<li><a href='#'>" + groups[i].groupName + "</a></li>"; – 
+Molda
+ Apr 15, 2016 at 17:34
+Add a comment
+Your Answer
+
+Sign up or log in
+Post as a guest
+Name
+
+Email
+Required, but never shown
+
+
+By clicking “Post Your Answer”, you agree to our terms of service and acknowledge that you have read and understand our privacy policy and code of conduct.
+
+Not the answer you're looking for? Browse other questions tagged javascriptnode.jstwitter-bootstrapmongodbloops or ask your own question.
+The Overflow Blog
+How long till we run out of fresh data to train the latest AI?
+Featured on Meta
+Update to our Advertising Guidelines
+Sites can now request to enable a banner to warn about their policy on...
+Temporary policy: Generative AI (e.g., ChatGPT) is banned
+Related
+5340
+How do I create a GUID / UUID?
+3261
+How can I merge properties of two JavaScript objects dynamically?
+1248
+How to make Twitter Bootstrap menu dropdown on hover rather than click
+2302
+How to create an array containing 1...N
+2049
+How does data binding work in AngularJS?
+1138
+How can I make Bootstrap columns all the same height?
+974
+How to open a Bootstrap modal window using jQuery?
+1150
+How to create a directory if it doesn't exist using Node.js
+615
+Passing data to a bootstrap modal
+1390
+How can I create a two dimensional array in JavaScript?
+Hot Network Questions
+Do you know of any such fonts?
+When are Superiority Dice Added?
+How to avoid writing a 'good but not great' reference letter
+Improvised fridge?
+When did "neighbourhood of a point" first appear in the history of Taylor series?
+Passenger window insert pops out mid-flight
+Why do flights serve food at all?
+Do Latter-day Saints recognize Eastern Orthodox and Catholic Saints?
+Conventional weapon design to counter specific magical weaponry
+How can an International Court of Justice order to stop the war in Gaza be enforced?
+Can I dispute a credit card charge for a hacked Vanilla Visa Gift Card?
+D major with no C tone
+Shortest path to open a letter lock
+Is there a name for this kind of loose pseudo alliteration? for example, gold -> glitter, crown -> king
+Why does the Linux SCSI subsystem drive hardware not obviously related to SCSI?
+In what cases are counter-terrorist operations justified?
+Can airlines leave you stranded?
+Is it academically correct to name your own theorems?
+How to create a specific lighting in 3D graphics for a disk?
+Orange on Turquoise
+What is this metal plug thing on my outside wall?
+HTTPonly token without CSRF is safe?
+What is this wrong inscription at the Doors of Durin, the gate of moria?
+Why did current increase when voltage decreased?
+ Question feed
+
+STACK OVERFLOW
+Questions
+Help
+PRODUCTS
+Teams
+Advertising
+Collectives
+Talent
+COMPANY
+About
+Press
+Work Here
+Legal
+Privacy Policy
+Terms of Service
+Contact Us
+Cookie Settings
+Cookie Policy
+STACK EXCHANGE NETWORK
+Technology
+Culture & recreation
+Life & arts
+Science
+Professional
+Business
+API
+Data
+Blog
+Facebook
+Twitter
+LinkedIn
+Instagram
+Site design / logo © 2024 Stack Exchange Inc; user contributions licensed under CC BY-SA. rev 2024.1.3.2953
+
+
+Orihinal na teksto
+I-rate ang pagsasaling ito
+Gagamitin ang iyong feedback para makatulong na pahusayin ang Google Translate
+
+
