@@ -1,0 +1,548 @@
+#27
+
+
+
+MENU
+
+￼
+
+Home
+
+Payment Gateway Providers
+
+How to do payment gateway integration in PHP, Java and C#
+
+Why is FinancesOnline free ￼
+
+How to do payment gateway integration in PHP, Java and C#
+
+￼
+
+Podium: No. 1 In Payment Gateway Providers
+
+Our score: 9.1User satisfaction: 95%
+
+How do you make payment gateway integration in PHP, Java and C#?
+
+First, you need a good background of the codes required: Java, C# and PHP. Second, you have to consult the payment gateway provider for its API and other materials needed to complete the task. Lastly, you need to test, test, test your final code before going live as otherwise, you could be dealing with a financial disaster at your hands.
+
+In the time of a global pandemic, a smoothly functioning payment gateway is key to operating a business with a substantial online presence. If you are already using an ecommerce software like BigCommerce, you barely need any coding skills as the application already has the major payment gateways like PayPal seamlessly built into it. The skill becomes crucial when you want to connect a payment gateway right into your website. If you possess coding skills in C#, Java, or PHP, then these tutorials will make it easier for you to navigate through the steps in integrating the payment gateway of your choice.
+
+In this article, we’ll walk you through the steps required to properly integrate your payment gateway of choice right into your website. While vendors typically provide the API source codes to make the procedure as painless as possible, the works involved require that you possess some coding skills, to begin with. If you are not comfortable with the idea, then it is time you get someone on board to do it for you. Another option is to check out if your business could do better with some of the leading shopping cart tools that integrate these payment gateways right out of the box.
+
+￼
+
+Tutorials for gateway integration in PHP, Java, and C#
+
+Payment Gateway Integration in PHP
+
+Payment Gateway Integration in Java
+
+Payment Gateway Integration in C#
+
+Despite the COVID-19 outbreak, cross-border ecommerce displayed a significant growth of 21% from January to June 2020. In the United States alone, “stateside shoppers” were making more online purchases from online stores outside the country, which resulted in cross-border online sales surging by 42% in the month of May alone.
+
+1%1%5%5%0%0%7%7%42%42%JanuaryFebruaryMarchAprilMay01020304050
+
+Year-over-Year Cross-Border Web Sales Growth
+
+In the US, 2020 by Month
+
+Designed by￼
+
+Source: Global-e 2020; Digital Commerce 360 2020
+
+Businesses with substantial online activities have a lot to gain in reaching out to these shoppers who have no qualms getting their orders from outside of their countries in the midst of a global pandemic. Part of how they could do that is by ensuring that they have reliable payment gateway providers to accommodate these global shoppers. That is easier said than done, however, with these solutions proving inadequate in handling traffic and the regulations in China, for example.
+
+Most businesses try to remedy the situation by having five gateway processors and four acquiring banks, realizing that one solution does not support the payment feature that one particular country or region needs. The challenge then for these payment solutions is to simplify this multiplicity imposed on them by the current state of technology available.
+
+While these payment gateway providers are trying to figure out how to simplify global payment processes, businesses are stuck with what they have. Part of that is having the know-how or the talent to integrate as many payment processing outfits that they need. This means the skills for coding, which make these tutorials an essential step towards achieving just that. While that may seem forbidding for some, people who code for a living could get substantial help from this coding resource.
+
+Tutorial 1: Payment Gateway Integration in PHP
+
+We are going to use Stripe as an example to show us how to do payment gateway integration in PHP. With Stripe’s payment gateway, you can easily accept credit cards directly on your website by integrating a checkout system and enabling payment.
+
+To integrate Stripe payment gateway in your PHP-based website, you need to implement the following functionalities.
+
+Prepare the HTML form to collect credit card information.
+
+Create Stripe token to securely transmit card information.
+
+Submit the form with card details.
+
+Verify the card and process charges.
+
+Insert payment details in the database for status to be shown to the user.
+
+Test Stripe API Keys Data
+
+Before getting your Stripe payment gateway integration live, you need to test it thoroughly. To test the credit card payment process, you need the TEST API Keys to generate in your Stripe account.
+
+Login to your Stripe account and navigate to the API page.
+
+Under the TEST DATA section, you’ll see the API keys are listed. To show the Secret key, click on the Reveal test key token button.
+
+￼
+
+Collect the Publishable key and Secret key to later use in the script.
+
+You probably need to look at the files structures before you proceeding any further:
+
+￼
+
+Create Database Table
+
+Next, you will need to create a table in the database to save the transaction details. What follows is an SQL creating the orders table in the MySQL database.
+
+CREATE TABLE `orders` ( `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL, `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL, `card_num` bigint(20) NOT NULL, `card_cvc` int(5) NOT NULL, `card_exp_month` varchar(2) COLLATE utf8_unicode_ci NOT NULL, `card_exp_year` varchar(5) COLLATE utf8_unicode_ci NOT NULL, `item_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL, `item_number` varchar(50) COLLATE utf8_unicode_ci NOT NULL, `item_price` float(10,2) NOT NULL, `item_price_currency` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'usd', `paid_amount` varchar(10) COLLATE utf8_unicode_ci NOT NULL, `paid_amount_currency` varchar(10) COLLATE utf8_unicode_ci NOT NULL, `txn_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL, `payment_status` varchar(50) COLLATE utf8_unicode_ci NOT NULL, `created` datetime NOT NULL, `modified` datetime NOT NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+Database Configuration (dbConfig.php)
+
+You will need the dbConfig.php file to connect and select the database. Specify the database host ($dbHost), username ($dbUsername), password ($dbPassword), and name ($dbName) after your database credentials.
+
+<?php //Database credentials $dbHost     = 'localhost'; $dbUsername = 'root'; $dbPassword = '*****'; $dbName     = 'codexworld'; //Connect with the database $db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName); //Display error if failed to connect if ($db->connect_errno) {     printf("Connect failed: %s\n", $db->connect_error);     exit(); }
+
+Stripe Checkout Form (index.php)
+
+JavaScript
+
+Include the Stripe JavaScript library to securely send sensitive information to Stripe directly from the browser.
+
+<!-- Stripe JavaScript library --> <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+The jQuery library is not necessary to use Stripe; it is used only for this example.
+
+<!-- jQuery is used only for this example; it isn't required to use Stripe --> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+In the JavaScript code, set your publishable API key that identifies your website to Stripe. The stripeResponseHandler() function creates a single-use token and inserts a token field in the payment form HTML.
+
+<script type="text/javascript"> //set your publishable key Stripe.setPublishableKey('Your_API_Publishable_Key'); //callback to handle the response from stripe function stripeResponseHandler(status, response) { if (response.error) { //enable the submit button $('#payBtn').removeAttr("disabled"); //display the errors on the form $(".payment-errors").html(response.error.message); } else { var form$ = $("#paymentFrm"); //get token id var token = response['id']; //insert the token into the form form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />"); //submit form to the server form$.get(0).submit(); } } $(document).ready(function() { //on form submit $("#paymentFrm").submit(function(event) { //disable the submit button to prevent repeated clicks $('#payBtn').attr("disabled", "disabled"); //create single-use token to charge the user Stripe.createToken({ number: $('.card-number').val(), cvc: $('.card-cvc').val(), exp_month: $('.card-expiry-month').val(), exp_year: $('.card-expiry-year').val() }, stripeResponseHandler); //submit from callback return false; }); }); </script>
+
+HTML
+
+The following HTML form collects the user information (name and email) and card details (Card Number, Expiration Date, and CVC No.). For further card payment processing, the form is submitted to the PHP script (submit.php).
+
+<h1>Charge $55 with Stripe</h1> <!-- display errors returned by createToken --> <span class="payment-errors"></span> <!-- stripe payment form --> <form action="submit.php" method="POST" id="paymentFrm"> <p> <label>Name</label> <input type="text" name="name" size="50" /> </p> <p> <label>Email</label> <input type="text" name="email" size="50" /> </p> <p> <label>Card Number</label> <input type="text" name="card_num" size="20" autocomplete="off" class="card-number" /> </p> <p> <label>CVC</label> <input type="text" name="cvc" size="4" autocomplete="off" class="card-cvc" /> </p> <p> <label>Expiration (MM/YYYY)</label> <input type="text" name="exp_month" size="2" class="card-expiry-month"/> <span> / </span> <input type="text" name="exp_year" size="4" class="card-expiry-year"/> </p> <button type="submit" id="payBtn">Submit Payment</button> </form>
+
+Stripe PHP Library
+
+Next, we’re going to use the Stripe PHP library to process the card payment. The library is available here.
+
+Validate and Process Payment (submit.php)
+
+In this file, the submitted card details are validated, and the charge is processed using the Stripe PHP library.
+
+Get the token, card details, and the user info from the submitted form.
+Include the Stripe PHP library.
+
+Set your Publishable key and Secret key, which we have created in Stripe Test API Data section.
+
+Add customer to Stripe using the user email and Stripe token.
+
+Specify product details and create a charge to the credit card or debit card.
+
+Retrieve the charge details that have previously been created.
+
+If the charge is successful, the order and transaction details will be inserted in the database. Otherwise, an error message will be shown.
+
+//check whether stripe token is not empty if(!empty($_POST['stripeToken'])){     //get token, card and user info from the form     $token  = $_POST['stripeToken'];     $name = $_POST['name'];     $email = $_POST['email'];     $card_num = $_POST['card_num'];     $card_cvc = $_POST['cvc'];     $card_exp_month = $_POST['exp_month'];     $card_exp_year = $_POST['exp_year'];          //include Stripe PHP library     require_once('stripe-php/init.php');          //set api key     $stripe = array(       "secret_key"      => "Your_API_Secret_Key",       "publishable_key" => "Your_API_Publishable_Key"     );          \Stripe\Stripe::setApiKey($stripe['secret_key']);          //add customer to stripe     $customer = \Stripe\Customer::create(array(         'email' => $email,         'source'  => $token     ));          //item information     $itemName = "Premium Script CodexWorld";     $itemNumber = "PS123456";     $itemPrice = 55;     $currency = "usd";     $orderID = "SKA92712382139";          //charge a credit or a debit card     $charge = \Stripe\Charge::create(array(         'customer' => $customer->id,         'amount'   => $itemPrice,         'currency' => $currency,         'description' => $itemName,         'metadata' => array(             'order_id' => $orderID         )     ));          //retrieve charge details     $chargeJson = $charge->jsonSerialize();     //check whether the charge is successful     if($chargeJson['amount_refunded'] == 0 && empty($chargeJson ['failure_code']) && $chargeJson['paid'] == 1 && $chargeJson['captured'] == 1){         //order details          $amount = $chargeJson['amount'];         $balance_transaction = $chargeJson['balance_transaction'];         $currency = $chargeJson['currency'];         $status = $chargeJson['status'];         $date = date("Y-m-d H:i:s");                  //include database config file         include_once 'dbConfig.php';                  //insert tansaction data into the database         $sql =  "INSERT INTO orders(name,email,card_num,card_cvc,card_exp_month,card_exp_year, item_name,item_number,item_price,item_price_currency,paid_amount, paid_amount_currency,txn_id,payment_status,created,modified) VALUES ('".$name."','".$email."','".$card_num."','".$card_cvc."','".$card_exp_month."', '".$card_exp_year."','".$itemName."','".$itemNumber."','".$itemPrice."','".$currency."', '".$amount."','".$currency."','".$balance_transaction."' ,'".$status."','".$date."','".$date."')";         $insert = $db->query($sql);         $last_insert_id = $db->insert_id;                  //if order inserted successfully         if($last_insert_id && $status == 'succeeded'){             $statusMsg = "<h2>The transaction was successful.</h2><h4>Order ID: {$last_insert_id}</h4>";         }else{             $statusMsg = "Transaction has been failed";         }     }else{         $statusMsg = "Transaction has been failed";     } }else{     $statusMsg = "Form submission error......."; } //show success or error message echo $statusMsg;
+
+Test Card Details
+
+To test the payment process, you need test card details. Use any of the following test card numbers, a valid, future expiration date, and any random CVC number to test Stripe payment gateway integration in PHP.
+
+378282246310005 American Express
+
+6011111111111117 Discover
+
+4242424242424242 Visa
+
+4000056655665556 Visa (debit)
+
+5555555555554444 Mastercard
+
+5200828282828210 Mastercard (debit)
+
+Launch Stripe Payment Gateway Live
+
+Once testing is done and the payment process is working properly, follow the steps below to have Stripe payment gateway go live.
+
+Login to your Stripe account and navigate to the API page.
+
+Collect the API keys (Publishable key and Secret key) from Live Data.
+
+Change the Test API keys (Publishable key and Secret key) with the Live API keys (Publishable key and Secret key) in the script.
+
+Source: Codexworld
+
+Tutorial 2: Payment Gateway Integration in Java
+
+To show us how to do payment gateway integration in Java, we will use PayPal for illustration. PayPal is one of the leading platforms for making payments and money transfers via the internet. As with most SaaS applications, it provides APIs so businesses can easily facilitate the payment or transfer transaction critical to their operations.
+
+As with Stripe, we need a PayPal account to proceed.
+
+Accounts for Seller and Buyer
+
+We would need two sandbox accounts for testing. One is for the seller, and the other one is for the buyer.
+
+A sandbox account is a kind of dummy account provided by PayPal for testing purposes. Now we’re ready to log into Paypal’s developer site and create an account here.
+
+To verify the creation of the sandbox accounts, click here.
+
+For this section, you have to make use of the PayPal NVP API, which links a message’s request and response field values. The request message is initiated by the client, that is your website, while the response message would be coming from PayPal.
+
+PayPal has more information about NVM here.
+
+Collect API Credentials for Seller Account
+
+First, we need the API credentials for the Seller Account.
+
+API Username
+
+API Password
+
+Signature
+
+To accomplish this, do the following:
+
+Log in to seller account
+
+On Home page, click on –> Profile
+
+click on –> Request API credentials
+
+click on –> View API Signature
+
+Next, we proceed to integrate the Seller Account with Java Web Application. To do this, open the config.properties file and set the API credentials of the seller.
+
+PP_USER_SANDBOX = <seller_username_here>
+
+PP_PASSWORD_SANDBOX = <seller_password_here>
+
+PP_SIGNATURE_SANDBOX = <seller_signature_here>
+
+SANDBOX_FLAG: Keep it true when working with sandbox/demo accounts; later, when going live, it needs to be false.
+
+Copy all files and folders under the downloaded “PaypalCredit” package to the same location where you have your shopping cart page.
+
+Run its index file, or you can make your own index file with your desired name if you want to integrate it with your web application. If you want to make your own index file, then copy the following:
+
+<form> ... </form> to your shopping cart page.
+
+<form action=“paypal_ec_redirect.php” method=“POST”>
+
+<input type=“hidden” name=“PAYMENTREQUEST_0_AMT” value=“10.00”></input>
+
+<input type=“hidden” name=“currencyCodeType” value=“USD”></input>
+
+<input type=“hidden” name=“paymentType” value=“Sale”></input>
+
+<input type=“image” src=“https://www.paypalobjects.com/webstatic/en_US/i/buttons/ppcredit- logo-large.png” alt=“PayPal Credit”>
+
+</input>
+
+</form>
+
+Input the additional input parameters based on your shopping cart. For a complete list of all the parameters, proceed to this PayPal page.
+
+Now run your own index file or whatever name you have given to the index file, click on “Paypal Credit” button and complete the flow by entering the buyer credentials (email ID, password) whenever prompted for them.
+
+Source: Technetexperts
+
+Tutorial 3: Payment Gateway Integration in C#
+
+Next, we move to the payment gateway integration in C# via asp.net. To proceed with how to do payment gateway integration in C#, we will go back to Stripe to illustrate the procedures.
+
+You can integrate either the Stripe client or server-side. Here we’ll teach you how to implement the server-side integration.
+
+Step 1
+
+Register on https://dashboard.stripe.com/register with Email, Name, and Password.
+
+Step 2
+
+Install Stripe library in your Visual Project using Install-Package Stripe.net. It will download Stripe.net.dll and add a reference to your project.
+
+Step 3
+
+Add Namespace (using Stripe.Infrastructure;) to the Class where you want to implement the payment gateway.
+
+Step 4
+
+To implement, you need to play with several classes. Please follow each step to make the payment.
+
+Step 5
+
+To connect with Stripe, you need the Publishable key. Get it from here.
+
+￼
+
+Step 6
+
+Set API key with this function:
+
+Stripe.StripeConfiguration.SetApiKey(“pk_test_FyPZYPyqf8jU6IdG2DONgudS”);
+
+Step 7
+
+Create the Object of Credit Card to generate a Token. That Token will be set to Customer Object during the Creation of Customer.
+
+//Create Card Object to create Token
+
+Stripe.CreditCardOptions card = new Stripe.CreditCardOptions();
+
+card.Name = tParams.CardOwnerFirstName + ” “ + tParams.CardOwnerLastName;
+
+card.Number = tParams.CardNumber;
+
+card.ExpYear = tParams.ExpirationYear;
+
+card.ExpMonth = tParams.ExpirationMonth;
+
+card.Cvc = tParams.CVV2;
+
+//Assign Card to Token Object and create Token
+
+Stripe.TokenCreateOptions token = new Stripe.TokenCreateOptions();
+
+token.Card = card;
+
+Stripe.TokenService serviceToken = new Stripe.TokenService();
+
+Stripe.Token newToken = serviceToken.Create(token);
+
+Step 8
+
+Assign the TokenID to the Customer Object so that at the time of customer creation, a card gets created and linked to the Customer:
+
+//Create Customer Object and Register it on Stripe
+Stripe.CustomerCreateOptions myCustomer = new Stripe.CustomerCreateOptions();
+myCustomer.Email = tParams.Buyer_Email;
+myCustomer.SourceToken = newToken.Id;
+customerService = new Stripe.CustomerService();
+Stripe.Customer stripeCustomer = customerService.Create(myCustomer);
+
+Step 9
+
+Create Charge Object. Charge object is the actual object that will make the payment.
+
+//Create Charge Object with details of Charge
+
+var options = new Stripe.ChargeCreateOptions {
+
+Amount = Convert.ToInt32(tParams.Amount),
+
+Currency = tParams.CurrencyId == 1 ? “ILS” : “USD”,
+
+ReceiptEmail = tParams.Buyer_Email,
+
+CustomerId = stripeCustomer.Id,
+
+Description = Convert.ToString(tParams.TransactionId), //Optional
+
+;
+
+//and Create Method of this object is doing the payment execution.
+
+var service = new Stripe.ChargeService();
+
+Stripe.Charge charge = service.Create(options); // This will do the Payment
+
+Step 10
+
+Charge. Status will return the status.
+
+Step 11
+
+Now you can check the Created Customer from here.
+
+￼
+
+Do another check, this time for payment, here.
+
+￼
+
+Source: C-sharpcorner
+
+More About Integrating Payment Gateways
+
+While we have walked you through integrating payment gateways using PHP, Java, and C#, you will do well to extend your understanding to the best practices of implementing payment gateways for more solid ground. The article will guide you through some of the most important issues, like currency and country support.
+
+In the US, you will find our compilation of the leading payment gateway solutions helpful to determine the rates and kind of services that suit your business.
+
+At the moment, we pick 2Checkout as our top choice for this category. This is thanks to its simple interface and robust functionalities that both tech-savvy and tech-averse users will enjoy using. If you want to know if this solution is a fit for your own operations, you can sign up for 2Checkout free trial.
+
+832
+
+13
+
+￼
+
+By Shaun Baker
+
+With 5 years of experience in digital marketing and retail strategy under his belt, Shaun Baker is the resident eCommerce expert at FinancesOnline. A contributor to Entrepreneur, The Atlantic, and other business portals, he has spoken and written about various eCommerce subjects, from AI and headless commerce to the economics of Black Mirror’s “Fifteen Million Credits”. His (highly) opinionated pieces on the ebbs and flows of eCommerce as an industry remain both a dynamic resource of talking points and entertainment in itself.
+
+Top Payment Gateway Providers of 2024 
+
+1.
+
+￼
+
+2.
+
+￼
+
+3.
+
+￼
+
+COMPARE BEST TOOLS
+
+Page last modified 2023-12-15
+
+￼
+
+Top 10 Alternatives to Stripe: Analysis of Best Payment Gateway Providers
+
+Category: B2B News
+
+￼
+
+How Much to Save, Why and Where – Tips To Stay Safe In a Money Emergency
+
+Category: Financial News
+
+￼
+
+10 Reasons Why monday.com Will Work Great for Any Company
+
+Category: B2B News
+
+￼
+
+15 Best Open Source Digital Asset Management (DAM) Software for 2024
+
+Category: B2B News
+
+￼
+
+10 Team Building Games & Ideas You Should Try In Your Company
+
+Category: B2B News
+
+￼
+
+Learning and Development Process: How to Create the Right Objectives and Activities
+
+Category: B2B News
+
+￼
+
+20 Best EHS Software for Oil and Gas Refinery for 2024
+
+Category: B2B News
+
+￼
+
+Rippling Pricing Packages: What’s Included in the Quote-Based Plan?
+
+Category: B2B News
+
+￼
+
+Benefits of ERP Software: Examples of Top Solutions Explained
+
+Category: B2B News
+
+￼
+
+15 Best File Sharing Software Systems: List of Current Market Leaders
+
+Category: B2B News
+
+￼
+
+Is monday.com the Best Project Management Tool?
+
+Category: B2B News
+
+￼
+
+20 Best Grammar Checker Software Solutions for 2024
+
+Category: B2B News
+
+￼
+
+TalentLMS: Pros and Cons of the Top Learning Management System
+
+Category: B2B News
+
+￼
+
+What is mLearning? How Mobile Learning Apps Can Help Your Business
+
+Category: B2B News
+
+￼
+
+Implementing Sales Software: What Traps Can Wait For Your Business?
+
+Category: B2B News
+
+￼
+
+Best Free Accounting Software Solutions to Consider in 2024
+
+Category: B2B News
+
+￼
+
+Freshdesk vs. Freshservice: 2024 Comparison of Features, Pricing & Integrations
+
+Category: B2B News
+
+￼
+
+Best Free Inventory Management Software Solutions to Consider in 2024
+
+Category: B2B News
+
+￼
+
+Pros & Cons of PandaDoc: Analysis of Document Management Software
+
+Category: B2B News
+
+￼
+
+Pros and Cons of Procurify: Analysis of a Popular Procurement Management Software
+
+Category: B2B News
+
+  
+
+Leave a comment!
+
+Add your comment below.
+
+Be nice. Keep it clean. Stay on topic. No spam.
+
+TOP
+
+￼
+
+FinancesOnline
+
+EU Office: Grojecka 70/13 Warsaw, 02-359 Poland
+
+US Office: 120 St James Ave Floor 6, Boston, MA 02116
+
+Company
+
+Policies
+
+Content
+
+  
+
